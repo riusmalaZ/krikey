@@ -7,11 +7,15 @@ public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 public class BattleSystem : MonoBehaviour
 {
 
-    public GameObject PlayerPrefab;
-    public GameObject EnemyPrefab;
+    public List<GameObject> PlayerPrefab;
+    public List<GameObject> EnemyPrefab;
 
-    public Transform PlayerBattleStation;
-    public Transform EnemyBattleStation;
+    public int indiceEnemy;
+
+    public int indicePlayer;
+
+    public List<Transform> PlayerBattleStation;
+    public List<Transform> EnemyBattleStation;
 
     public BattleState state; 
 
@@ -27,11 +31,25 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        GameObject PlayerGO = Instantiate(PlayerPrefab, PlayerBattleStation);
-        PlayerUnit = PlayerGO.GetComponent<Unit>();
+        indiceEnemy = 0; 
+        indicePlayer = 0;
 
-        GameObject EnemyGO = Instantiate(EnemyPrefab, EnemyBattleStation);
-        EnemyUnit = EnemyGO.GetComponent<Unit>();
+        foreach(GameObject P in PlayerPrefab)
+        {
+            GameObject PlayerGO = Instantiate(P, PlayerBattleStation[indicePlayer]);
+            PlayerUnit = PlayerGO.GetComponent<Unit>();
+            indicePlayer++;
+        }
+        
+        foreach(GameObject E in PlayerPrefab)
+        {
+            GameObject EnemyGO = Instantiate(E, EnemyBattleStation[indiceEnemy]);
+            EnemyUnit = EnemyGO.GetComponent<Unit>();
+            indiceEnemy++;
+        }
+
+        indiceEnemy = 0; 
+        indicePlayer = 0;
 
         yield return new WaitForSeconds(2f);
 
@@ -41,6 +59,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        PlayerUnit = PlayerPrefab[indicePlayer].GetComponent<Unit>();
+
         bool isDead = EnemyUnit.TakeDamge(PlayerUnit.damage);
         Debug.Log(EnemyUnit.currentHP);
 
@@ -51,10 +71,15 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.WON;
             EndBattle();
         }
-        else
+        else if (indicePlayer == PlayerPrefab.Count - 1 )
         {
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
+        }
+        else if(indicePlayer != PlayerPrefab.Count - 1)
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
         }
         
     }
@@ -74,6 +99,8 @@ public class BattleSystem : MonoBehaviour
     IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(1f);
+
+        EnemyUnit = EnemyPrefab[indicePlayer].GetComponent<Unit>();
 
         bool isDead = PlayerUnit.TakeDamge(EnemyUnit.damage);
         Debug.Log(PlayerUnit.currentHP);
