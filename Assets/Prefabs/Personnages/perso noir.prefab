@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3505191808081806820}
   - component: {fileID: 6199183857723064857}
   - component: {fileID: 3446251616162514926}
+  - component: {fileID: -5959126962227502065}
   m_Layer: 0
   m_Name: perso noir
   m_TagString: Untagged
@@ -107,3 +108,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5959126962227502065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619112612940538667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d62a7dfe309a0e44b4ef297217eba5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
