@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4306130536338228968}
   - component: {fileID: 1380403039712674327}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,9 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbff7539b7890f4da577e45baa7f1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 'Joueur 1 '
+  unitName: Joueur 2
   unitLevel: 1
-  damage: 1
-  maxHP: 5
-  currentHP: 5
+  damage: 2
+  heal: 0
+  maxHP: 10
+  currentHP: 10
   attackSpeed: 0

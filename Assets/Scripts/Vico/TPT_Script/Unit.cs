@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour
 
     public int damage;
 
+    public int heal;
+
     public int maxHP;
     public int currentHP;
     public int attackSpeed;

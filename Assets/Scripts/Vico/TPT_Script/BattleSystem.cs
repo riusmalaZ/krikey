@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
 public class BattleSystem : MonoBehaviour
 {
+    public TextMeshProUGUI texts;
 
     public List<GameObject> PlayerPrefab;
     public List<GameObject> EnemyPrefab;
 
-    public int indiceEnemy;
+    int indiceEnemy;
 
-    public int indicePlayer;
+    int indicePlayer;
 
     public List<Transform> PlayerBattleStation;
     public List<Transform> EnemyBattleStation;
@@ -21,6 +24,7 @@ public class BattleSystem : MonoBehaviour
 
     Unit PlayerUnit;
     Unit EnemyUnit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +45,7 @@ public class BattleSystem : MonoBehaviour
             indicePlayer++;
         }
         
-        foreach(GameObject E in PlayerPrefab)
+        foreach(GameObject E in EnemyPrefab)
         {
             GameObject EnemyGO = Instantiate(E, EnemyBattleStation[indiceEnemy]);
             EnemyUnit = EnemyGO.GetComponent<Unit>();
@@ -54,15 +58,23 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
+
+        PlayerUnit = PlayerPrefab[0].GetComponent<Unit>();
+
+        texts.text = PlayerUnit.unitName;
+
         PlayerTurn();
     }
 
     IEnumerator PlayerAttack()
     {
+
         PlayerUnit = PlayerPrefab[indicePlayer].GetComponent<Unit>();
 
+        texts.text = PlayerUnit.unitName;
+
         bool isDead = EnemyUnit.TakeDamge(PlayerUnit.damage);
-        Debug.Log(EnemyUnit.currentHP);
+        Debug.Log( EnemyUnit.unitName + ": " +EnemyUnit.currentHP);
 
         yield return new WaitForSeconds(2f);
 
@@ -74,12 +86,20 @@ public class BattleSystem : MonoBehaviour
         else if (indicePlayer == PlayerPrefab.Count - 1 )
         {
             state = BattleState.ENEMYTURN;
+            indicePlayer = 0;
             StartCoroutine(EnemyTurn());
         }
         else if(indicePlayer != PlayerPrefab.Count - 1)
         {
             state = BattleState.PLAYERTURN;
+            indicePlayer++;
+
+            PlayerUnit = PlayerPrefab[indicePlayer].GetComponent<Unit>();
+
+            texts.text = PlayerUnit.unitName;
+
             PlayerTurn();
+            
         }
         
     }
@@ -100,10 +120,15 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        EnemyUnit = EnemyPrefab[indicePlayer].GetComponent<Unit>();
+        Debug.Log("Enemy Turn");
+
+        EnemyUnit = EnemyPrefab[indiceEnemy].GetComponent<Unit>();
+
+        texts.text = EnemyUnit.unitName;
 
         bool isDead = PlayerUnit.TakeDamge(EnemyUnit.damage);
-        Debug.Log(PlayerUnit.currentHP);
+
+        Debug.Log(PlayerUnit.unitName + ": " + PlayerUnit.currentHP);
 
         yield return new WaitForSeconds(1f);
 
@@ -112,23 +137,41 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.LOST;
             EndBattle();
         }
-        else
+        else if (indiceEnemy == EnemyPrefab.Count - 1 )
         {
             state = BattleState.PLAYERTURN;
+            indiceEnemy = 0;
+
+            PlayerUnit = PlayerPrefab[0].GetComponent<Unit>();
+
+            texts.text = PlayerUnit.unitName;
+
             PlayerTurn();
+        }
+        else if(indiceEnemy != EnemyPrefab.Count - 1)
+        {
+            state = BattleState.ENEMYTURN;
+            indiceEnemy++;
+            
+            StartCoroutine(EnemyTurn());
         }
     }
 
     void PlayerTurn()
     {
         Debug.Log("Player Turn");
+
     }
 
     public void OnAttackButton()
     {
         if(state != BattleState.PLAYERTURN)
+        {
+            Debug.Log("ah bah nan");
             return;
+        }
 
+        Debug.Log("Appuie");
         StartCoroutine(PlayerAttack());
     } 
 }
