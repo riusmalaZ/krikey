@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public string unitName;
     public int unitLevel;
 
@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour
 
     public int maxHP;
     public int currentHP;
+    public int attackSpeed;
 
     public bool TakeDamge(int dmg)
     {
