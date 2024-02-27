@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int attackSpeed;
+
+    public float Progression;
+
+    public Slider BarreProg;
+
+    public bool Enemy;
 
     public bool TakeDamge(int dmg)
     {

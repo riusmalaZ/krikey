@@ -170,7 +170,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20767183}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 196206115757333458143f9f9cde482a, type: 3}
   m_Name: 
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611432639}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 196206115757333458143f9f9cde482a, type: 3}
   m_Name: 
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835057265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 196206115757333458143f9f9cde482a, type: 3}
   m_Name: 
@@ -1504,8 +1504,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950940772}
-        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+      - m_Target: {fileID: 950940774}
+        m_TargetAssemblyTypeName: BattleSysteme, Assembly-CSharp
         m_MethodName: OnAttackButton
         m_Mode: 1
         m_Arguments:
@@ -1639,6 +1639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 950940773}
   - component: {fileID: 950940772}
+  - component: {fileID: 950940774}
   m_Layer: 0
   m_Name: Battle System
   m_TagString: Untagged
@@ -1653,7 +1654,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950940771}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72a58d96e8239624c89e25b23dbd9482, type: 3}
   m_Name: 
@@ -1687,6 +1688,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &950940774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950940771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057067de9e9af0c40af8b325eb83c203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerStation:
+  - {fileID: 1389972238}
+  - {fileID: 539021954}
+  EnemyStation:
+  - {fileID: 1160910272}
+  - {fileID: 1083718510}
+  PlayerPrefab:
+  - {fileID: 5149067799018194702, guid: 1e9d9fb43bd9a5244b6667e171d2dc39, type: 3}
+  - {fileID: 5149067799018194702, guid: ce6a7a2fbdf41654ea40aa09cf44dda8, type: 3}
+  EnemyPrefab:
+  - {fileID: 2889934893400475167, guid: 4733a5daaf4c84444b2f48810782fd53, type: 3}
+  - {fileID: 2889934893400475167, guid: 7bac63d8a82694341a0722425d9c671b, type: 3}
+  state: 0
+  sliders:
+  - {fileID: 835057268}
+  - {fileID: 611432642}
+  - {fileID: 20767186}
+  - {fileID: 1491251301}
 --- !u!1 &971978271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,7 +2218,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491251298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 196206115757333458143f9f9cde482a, type: 3}
   m_Name: 

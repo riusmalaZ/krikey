@@ -126,4 +126,5 @@ MonoBehaviour:
   heal: 0
   maxHP: 10
   currentHP: 10
-  attackSpeed: 0
+  attackSpeed: 3
+  Progression: 0

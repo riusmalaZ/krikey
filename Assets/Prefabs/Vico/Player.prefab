@@ -123,6 +123,9 @@ MonoBehaviour:
   unitName: 'Joueur 1 '
   unitLevel: 1
   damage: 1
+  heal: 0
   maxHP: 5
   currentHP: 5
-  attackSpeed: 0
+  attackSpeed: 10
+  Progression: 0
+  BarreProg: {fileID: 0}
