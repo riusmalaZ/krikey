@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public InventoryData inventoryData;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +16,8 @@ public class Inventory : MonoBehaviour
     {
         
     }
-    static void AddToInventory(ItemData itemData)
+    public void AddToInventory(ItemData itemData)
     {
-        
+        inventoryData.Inventaire.Add(itemData.Description);
     }
 }

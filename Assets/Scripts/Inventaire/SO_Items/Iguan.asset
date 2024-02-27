@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a3d78aa215fac47aa2ed34a76647d8, type: 3}
-  m_Name: Inventory
+  m_Script: {fileID: 11500000, guid: 24df8b3bc4b4d754e9ffc895abd3daa6, type: 3}
+  m_Name: Iguan
   m_EditorClassIdentifier: 
-  Inventaire: []
+  Name: Iguan
+  Description: c un animal
+  ButtonPrefab: {fileID: 9128132527969208037, guid: 13919b981d3c53641a622a4901a76ac9,
+    type: 3}
