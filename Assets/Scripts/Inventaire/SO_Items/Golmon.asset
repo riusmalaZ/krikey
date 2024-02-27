@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a3d78aa215fac47aa2ed34a76647d8, type: 3}
-  m_Name: Inventory
+  m_Script: {fileID: 11500000, guid: 24df8b3bc4b4d754e9ffc895abd3daa6, type: 3}
+  m_Name: Golmon
   m_EditorClassIdentifier: 
-  Inventaire: []
+  Name: Golmon
+  Description: ON ME PING SUR DISCORD
+  ButtonPrefab: {fileID: 1804435651303860110, guid: 930aead530e82844bbe15f3ad5dc681c,
+    type: 3}
