@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Coffre : MonoBehaviour
 {
     Outline outline;
-    public List<string> listItemsName;
+    [HideInInspector] public List<string> listItemsName;
     List<GameObject> listInst;
     [SerializeField] GameObject prefabButtonChest;
 
