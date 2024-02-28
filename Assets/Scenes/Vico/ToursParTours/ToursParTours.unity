@@ -1713,14 +1713,14 @@ MonoBehaviour:
   - {fileID: 2889934893400475167, guid: 4733a5daaf4c84444b2f48810782fd53, type: 3}
   - {fileID: 2889934893400475167, guid: 7bac63d8a82694341a0722425d9c671b, type: 3}
   state: 0
-  unitsList: []
   Curseur: {fileID: 0}
   sliders:
   - {fileID: 835057268}
   - {fileID: 611432642}
   - {fileID: 20767186}
   - {fileID: 1491251301}
-  PlayerUI: {fileID: 1330834719}
+  PlayerAttackButton: {fileID: 1330834719}
+  EnnemisInterface: {fileID: 1091405946}
 --- !u!1 &971978271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,7 +2012,6 @@ GameObject:
   - component: {fileID: 1091405947}
   - component: {fileID: 1091405949}
   - component: {fileID: 1091405948}
-  - component: {fileID: 1091405950}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2036,8 +2035,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -183.13}
+  m_SizeDelta: {x: 0, y: -366.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091405948
 MonoBehaviour:
@@ -2077,32 +2076,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091405946}
   m_CullTransparentMesh: 1
---- !u!114 &1091405950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091405946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &1160910271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,9 +2424,10 @@ MonoBehaviour:
   boutonPrefab: {fileID: 9079447864550142200, guid: aec8ef4b90b3cbc4fa7cbdcefd8c9a28,
     type: 3}
   panelBoutons: {fileID: 1091405947}
-  listeEnnemis: []
   battleSysteme: {fileID: 950940774}
   texts: {fileID: 0}
+  nombreColonnes: 3
+  espaceEntreBoutons: 10
 --- !u!4 &1578691490
 Transform:
   m_ObjectHideFlags: 0

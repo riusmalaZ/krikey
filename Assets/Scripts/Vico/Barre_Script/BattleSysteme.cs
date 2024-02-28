@@ -33,14 +33,20 @@ public class BattleSysteme : MonoBehaviour
     int indicePlayer;
 
     [HideInInspector]
-    public List<Unit> unitsList = new();
+    public Dictionary<Unit, List<GameObject> > unitsList = new();
 
     float chrono = 0;
     
     [SerializeField] GameObject Curseur;
     [SerializeField] List<Slider> sliders;
 
-    [SerializeField] GameObject PlayerUI;
+    [SerializeField] GameObject PlayerAttackButton;
+
+    [SerializeField] GameObject EnnemisInterface;
+
+    
+    List<GameObject> EnnemisMort = new();
+
 
     float valMax;
 
@@ -51,7 +57,8 @@ public class BattleSysteme : MonoBehaviour
     {
         state = BattleStates.Start;
         valMax = 100;
-        PlayerUI.SetActive(false);
+        PlayerAttackButton.SetActive(false);
+        EnnemisInterface.SetActive(false);
         
         SetupBattle();
     }
@@ -68,7 +75,9 @@ public class BattleSysteme : MonoBehaviour
                 EnemyTurn();
         }
 
-    
+        if(state == BattleStates.Win)
+            EndBattle();
+            
         
         
     }
@@ -82,9 +91,10 @@ public class BattleSysteme : MonoBehaviour
         {
             GameObject PlayerGO = Instantiate(P, PlayerStation[indicePlayer]);
             PlayerUnit = PlayerGO.GetComponent<Unit>();
-            unitsList.Add(PlayerUnit);
+            unitsList.Add(PlayerUnit, new());
             PlayerUnit.BarreProg = sliders[indicePlayer];
             PlayerUnit.BarreProg.maxValue = valMax;
+            unitsList[PlayerUnit].Add(PlayerGO);
             indicePlayer++;
         }
         
@@ -94,7 +104,8 @@ public class BattleSysteme : MonoBehaviour
             EnemyUnit = EnemyGO.GetComponent<Unit>();
             EnemyUnit.BarreProg = sliders[indicePlayer];
             EnemyUnit.BarreProg.maxValue = valMax;
-            unitsList.Add(EnemyUnit);
+            unitsList.Add(EnemyUnit, new());
+            unitsList[EnemyUnit].Add(EnemyGO);
             indiceEnemy++;
             indicePlayer++;
         }
@@ -110,12 +121,12 @@ public class BattleSysteme : MonoBehaviour
     void Jauge()
     {
         
-        foreach (Unit unit in unitsList)
+        foreach (Unit unit in unitsList.Keys)
         {
-            Debug.Log("Il est dedans");
+            //Debug.Log("Il est dedans");
             unit.Progression = unit.Progression + 1 * (unit.attackSpeed*Time.deltaTime); // Incrémente la valeur "progression" de l'unité
             unit.BarreProg.value = unit.Progression;
-            Debug.Log(unit.Progression);
+            //Debug.Log(unit.Progression);
 
             if (unit.Progression > valMax)
             {
@@ -126,7 +137,7 @@ public class BattleSysteme : MonoBehaviour
                     return;
                 }
 
-                PlayerUI.SetActive(true);
+                PlayerAttackButton.SetActive(true);
                 state = BattleStates.PlayerTurn;
                 PlayerUnit = unit;
                 
@@ -139,12 +150,12 @@ public class BattleSysteme : MonoBehaviour
     {
        //yield return new WaitForSeconds(1f);
 
-        Debug.Log("Enemy Turn");
+        //Debug.Log("Enemy Turn");
 
         //yield return new WaitForSeconds(1f);
 
-        Debug.Log("aaaahhhh");
-        Debug.Log("aahhh *chie partout*");
+        //Debug.Log("aaaahhhh");
+        //Debug.Log("aahhh *chie partout*");
 
         EnemyUnit.Progression = 0;
         state = BattleStates.Neutre;
@@ -161,23 +172,49 @@ public class BattleSysteme : MonoBehaviour
     {
         if(state != BattleStates.PlayerTurn)
         {
-            Debug.Log("ah bah nan");
+            //Debug.Log("ah bah nan");
             return;
         }
 
-        Debug.Log("Appuie");
-        PlayerUnit.Progression = 0;
+        //Debug.Log("Appuie");
         
-        state = BattleStates.Neutre;
-        PlayerUI.SetActive(false);
+        EnnemisInterface.SetActive(true);
+        PlayerAttackButton.SetActive(false);
 
         return;
     } 
 
-    void SelectionEnemy()
+    public void PlayerAttack(Unit ennemis)
     {
-        Instantiate(Curseur, EnemyStation[0]);
-        
+        bool isDead = ennemis.TakeDamge(PlayerUnit.damage);
+
+
+        Debug.Log( ennemis.unitName + ": " + ennemis.currentHP);
+        state = BattleStates.Neutre;
+        PlayerUnit.Progression = 0;
+
+        if(isDead)
+        {
+            EnnemisMort.Add(unitsList[ennemis][0]);
+            Destroy(unitsList[ennemis][0]);
+            Destroy(unitsList[ennemis][1]);
+            
+            unitsList.Remove(ennemis);
+
+            if(EnnemisMort.Count == EnemyPrefab.Count)
+                state = BattleStates.Win;
+        }
+
+        EnnemisInterface.SetActive(false);
+        return;
+
     }
+
+    void EndBattle()
+    {
+        Debug.Log("Gagné !");
+    }
+
+
 }
 

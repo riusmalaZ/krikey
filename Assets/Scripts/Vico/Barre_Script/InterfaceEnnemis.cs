@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class InterfaceEnnemis : MonoBehaviour
 {
     public GameObject boutonPrefab; // Préfabriqué de bouton à utiliser
-    public Transform panelBoutons; // Panneau où les boutons seront affichés
+    public RectTransform panelBoutons; // Panneau où les boutons seront affichés
 
-    public List<Unit> listeEnnemis = new();
+    public Dictionary<Unit, List<GameObject> > listeEnnemis = new();
 
     public BattleSysteme battleSysteme;
 
@@ -24,12 +24,14 @@ public class InterfaceEnnemis : MonoBehaviour
         int ligneCourante = 0;
         int colonneCourante = 0;
 
+        
+
         listeEnnemis = battleSysteme.unitsList;
 
-        //RectTransform panelRect = panelBoutons.rect;
+        
 
         // Parcours de la liste des ennemis
-        foreach (Unit ennemi in listeEnnemis)
+        foreach (Unit ennemi in listeEnnemis.Keys)
         {
             
                 if(ennemi.Enemy){
@@ -37,10 +39,15 @@ public class InterfaceEnnemis : MonoBehaviour
                 // Création d'un nouveau bouton
                 GameObject nouveauBouton = Instantiate(boutonPrefab, panelBoutons);
 
+                listeEnnemis[ennemi].Add(nouveauBouton);
+
                 // Positionner le bouton dans la grille
                 RectTransform boutonTransform = nouveauBouton.GetComponent<RectTransform>();
-                boutonTransform.localPosition = new Vector2(colonneCourante * (boutonTransform.rect.width + espaceEntreBoutons),
-                                                         -ligneCourante * (boutonTransform.rect.height + espaceEntreBoutons));
+                boutonTransform.anchorMin = new Vector2(0, 1); // Coin supérieur gauche
+                boutonTransform.anchorMax = new Vector2(0, 1); // Coin supérieur gauche
+                boutonTransform.pivot = new Vector2(0, 1); // Coin supérieur gauche
+                boutonTransform.anchoredPosition = new Vector2(colonneCourante * (boutonTransform.rect.width + espaceEntreBoutons),
+                                                            -ligneCourante * (boutonTransform.rect.height + espaceEntreBoutons));
 
                 // Incrémenter la colonne courante
                 colonneCourante++;
@@ -54,7 +61,7 @@ public class InterfaceEnnemis : MonoBehaviour
 
                 texts = nouveauBouton.GetComponentInChildren<TextMeshProUGUI>();
 
-                Debug.Log("OUAIS OUAIS OUAIS");
+                //Debug.Log("OUAIS OUAIS OUAIS");
 
                 // Obtention du composant Text du bouton pour afficher le nom de l'ennemi
                 //Text texteBouton = nouveauBouton.GetComponentInChildren<Text>();
@@ -76,8 +83,7 @@ public class InterfaceEnnemis : MonoBehaviour
     // Méthode appelée lorsqu'un bouton ennemi est cliqué
     void BoutonEnnemiClique(Unit ennemi)
     {
-        // Insérez ici le code pour traiter le clic sur un ennemi spécifique
-        Debug.Log("Le bouton de l'ennemi " + ennemi.name + " a été cliqué !");
+        battleSysteme.PlayerAttack(ennemi);
     }
 }
 
