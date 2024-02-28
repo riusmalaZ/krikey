@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public enum BattleStates {Start, PlayerTurn, EnemyTurn, Lose, Win, Neutre}
@@ -31,19 +32,27 @@ public class BattleSysteme : MonoBehaviour
 
     int indicePlayer;
 
-    List<Unit> unitsList = new();
+    [HideInInspector]
+    public List<Unit> unitsList = new();
 
+    float chrono = 0;
     
-
+    [SerializeField] GameObject Curseur;
     [SerializeField] List<Slider> sliders;
+
+    [SerializeField] GameObject PlayerUI;
 
     float valMax;
 
+    bool InSelection = false;    
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         state = BattleStates.Start;
         valMax = 100;
+        PlayerUI.SetActive(false);
+        
         SetupBattle();
     }
 
@@ -53,9 +62,14 @@ public class BattleSysteme : MonoBehaviour
         if(state == BattleStates.Neutre)
             Jauge();
 
-        else if (state == BattleStates.EnemyTurn)
-            EnemyTurn();//StartCoroutine(EnemyTurn());
+        else if (state == BattleStates.EnemyTurn){
+            chrono += Time.deltaTime;
+            if(chrono > 1f)
+                EnemyTurn();
+        }
 
+    
+        
         
     }
 
@@ -95,6 +109,7 @@ public class BattleSysteme : MonoBehaviour
 
     void Jauge()
     {
+        
         foreach (Unit unit in unitsList)
         {
             Debug.Log("Il est dedans");
@@ -110,16 +125,19 @@ public class BattleSysteme : MonoBehaviour
                     EnemyUnit = unit;
                     return;
                 }
+
+                PlayerUI.SetActive(true);
                 state = BattleStates.PlayerTurn;
                 PlayerUnit = unit;
+                
                 return;
             }
         }
     }
 
-    public void EnemyTurn()
+    void EnemyTurn()
     {
-        //yield return new WaitForSeconds(1f);
+       //yield return new WaitForSeconds(1f);
 
         Debug.Log("Enemy Turn");
 
@@ -130,8 +148,13 @@ public class BattleSysteme : MonoBehaviour
 
         EnemyUnit.Progression = 0;
         state = BattleStates.Neutre;
-        return;
+        chrono = 0;
+        return; 
+
+        //StopCoroutine(EnemyTurn());
+
         //yield break;
+        
     }
 
     public void OnAttackButton()
@@ -144,8 +167,17 @@ public class BattleSysteme : MonoBehaviour
 
         Debug.Log("Appuie");
         PlayerUnit.Progression = 0;
+        
         state = BattleStates.Neutre;
+        PlayerUI.SetActive(false);
+
         return;
     } 
+
+    void SelectionEnemy()
+    {
+        Instantiate(Curseur, EnemyStation[0]);
+        
+    }
 }
 
