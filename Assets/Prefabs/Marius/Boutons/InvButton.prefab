@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3534616028279134332}
   - component: {fileID: -6988746481294146892}
   m_Layer: 5
-  m_Name: INV_3atay
+  m_Name: InvButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,12 +124,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -6988746481294146892}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: Pressed
-        m_Mode: 2
+        m_MethodName: Use
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 7af708e7a017d8546b80605da0b07646,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: ItemData, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -147,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f52cc977e85504d90be86c931adec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
 --- !u!1 &6169658106694367357
 GameObject:
   m_ObjectHideFlags: 0

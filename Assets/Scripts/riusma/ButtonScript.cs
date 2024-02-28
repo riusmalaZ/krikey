@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ButtonScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public void Pressed(ItemData itemData)
+    [HideInInspector] public string name;
+
+    public void Equip()
     {
-        GameObject.Find("Inventory").GetComponent<Inventory>().AddToInventory(itemData);
+        foreach (ItemData itemData in GameObject.Find("ItemManager").GetComponent<ItemManager>().ListItems)
+            if (itemData.Name == name) GameObject.Find("Inventory").GetComponent<Inventory>().AddToInventory(itemData);
+        GameObject.Find("Coffre").GetComponent<Coffre>().Clear();
+        
+    }
+    public void Use()
+    {
+        GameObject.Find("Inventory").GetComponent<Inventory>().RemoveToInventory(gameObject.name);
     }
 }
