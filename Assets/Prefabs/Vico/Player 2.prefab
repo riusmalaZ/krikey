@@ -129,4 +129,5 @@ MonoBehaviour:
   attackSpeed: 15
   Progression: 0
   BarreProg: {fileID: 0}
+  toursRestant: 3
   Enemy: 0

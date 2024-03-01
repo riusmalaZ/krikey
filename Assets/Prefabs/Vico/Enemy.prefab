@@ -126,7 +126,8 @@ MonoBehaviour:
   heal: 0
   maxHP: 5
   currentHP: 5
-  attackSpeed: 6
+  attackSpeed: 12
   Progression: 0
   BarreProg: {fileID: 0}
+  toursRestant: 0
   Enemy: 1

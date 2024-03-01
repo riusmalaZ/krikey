@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class InterfaceEnnemis : MonoBehaviour
 {
     public GameObject boutonPrefab; // Préfabriqué de bouton à utiliser
-    public RectTransform panelBoutons; // Panneau où les boutons seront affichés
+    public RectTransform panelBoutonsEnnemis; // Panneau où les boutons seront affichés
+
+    public RectTransform panelBoutonsPlayer; // Panneau où les boutons seront affichés
 
     public Dictionary<Unit, List<GameObject> > listeEnnemis = new();
 
@@ -24,22 +26,24 @@ public class InterfaceEnnemis : MonoBehaviour
         int ligneCourante = 0;
         int colonneCourante = 0;
 
-        
+        RectTransform ActualPanel = panelBoutonsPlayer;
 
         listeEnnemis = battleSysteme.unitsList;
 
         
 
         // Parcours de la liste des ennemis
-        foreach (Unit ennemi in listeEnnemis.Keys)
+        foreach (Unit Units in listeEnnemis.Keys)
         {
-            
-                if(ennemi.Enemy){
+                if(Units.Enemy)
+                    ActualPanel = panelBoutonsEnnemis;
+                else    
+                    ActualPanel = panelBoutonsPlayer;
                 
                 // Création d'un nouveau bouton
-                GameObject nouveauBouton = Instantiate(boutonPrefab, panelBoutons);
+                GameObject nouveauBouton = Instantiate(boutonPrefab, ActualPanel);
 
-                listeEnnemis[ennemi].Add(nouveauBouton);
+                listeEnnemis[Units].Add(nouveauBouton);
 
                 // Positionner le bouton dans la grille
                 RectTransform boutonTransform = nouveauBouton.GetComponent<RectTransform>();
@@ -67,16 +71,16 @@ public class InterfaceEnnemis : MonoBehaviour
                 //Text texteBouton = nouveauBouton.GetComponentInChildren<Text>();
                 if (texts != null)
                 {
-                    texts.text = ennemi.name; // Vous devez définir une propriété "Nom" dans votre classe Unit
+                    texts.text = Units.unitName; // Vous devez définir une propriété "Nom" dans votre classe Unit
                 }
 
                 // Ajout d'un gestionnaire d'événements au bouton pour effectuer une action lorsque le bouton est cliqué
                 Button boutonComponent = nouveauBouton.GetComponent<Button>();
-                if (boutonComponent != null)
+                if (boutonComponent != null && Units.Enemy)
                 {
-                    boutonComponent.onClick.AddListener(() => BoutonEnnemiClique(ennemi));
+                    boutonComponent.onClick.AddListener(() => BoutonEnnemiClique(Units));
                 }
-                }
+                
         }
     }
 

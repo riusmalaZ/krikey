@@ -17,9 +17,13 @@ public class Unit : MonoBehaviour
     public int currentHP;
     public int attackSpeed;
 
+    public bool IsDead => currentHP <= 0;
+
     public float Progression;
 
     public Slider BarreProg;
+
+    public int toursRestant;
 
     public bool Enemy;
 
@@ -27,9 +31,12 @@ public class Unit : MonoBehaviour
     {
         currentHP -= dmg;
 
-        if(currentHP <= 0)
-            return true;
-        else
-            return false;
+        return IsDead;
+    }
+
+    public void Progress()
+    {
+        Progression += 1 * (attackSpeed * Time.deltaTime); // Incrémente la valeur "progression" de l'unité
+        BarreProg.value = Progression;
     }
 }
