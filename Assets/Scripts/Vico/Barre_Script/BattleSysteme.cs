@@ -46,9 +46,21 @@ public class BattleSysteme : MonoBehaviour
 
     List<GameObject> PlayerMort = new();
 
-    List<Unit> EnemyUnitList = new();
+    List<Unit> EnemyUnitList = new(); 
+
+    public List<Unit> enemyUnitList
+    {
+        get { return EnemyUnitList; }
+        set { EnemyUnitList = value; }
+    }
 
     List<Unit> PlayerUnitList = new();
+
+    public List<Unit> playerUnitList
+    {
+        get { return PlayerUnitList; }
+        set { PlayerUnitList = value; }
+    }
 
     
 
@@ -93,7 +105,7 @@ public class BattleSysteme : MonoBehaviour
 
     void SetupBattle()
     {
-        for (int i = 0; i < PlayerPrefab.Count; i++)
+        for (int i = 0; i <= PlayerPrefab.Count - 1; i++)
         {
             GameObject PlayerGO = Instantiate(PlayerPrefab[i], PlayerStation[i]);
             PlayerUnit = PlayerGO.GetComponent<Unit>();
@@ -106,7 +118,7 @@ public class BattleSysteme : MonoBehaviour
         
         }
 
-        for (int i = 0; i < EnemyPrefab.Count; i++)
+        for (int i = 0; i <= EnemyPrefab.Count - 1; i++)
         {
             GameObject EnemyGO = Instantiate(EnemyPrefab[i], EnemyStation[i]);
             EnemyUnit = EnemyGO.GetComponent<Unit>();
