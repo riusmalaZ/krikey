@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
@@ -17,5 +18,10 @@ public class ButtonScript : MonoBehaviour
     public void Use()
     {
         GameObject.Find("Inventory").GetComponent<Inventory>().RemoveToInventory(gameObject.name);
+    }
+    public void Play()
+    {
+        GameObject.Find("PathManager").GetComponent<PathManager>().NextPoint();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

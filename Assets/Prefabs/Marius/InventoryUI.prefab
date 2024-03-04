@@ -607,7 +607,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 61c76022b07cca447874de35067cd016, type: 2}
-  slots: []
+  slots:
+  - {fileID: 6673313961893895294}
+  - {fileID: 519859589687236432}
+  - {fileID: 77648017426084810}
+  - {fileID: 4968360435799270309}
+  - {fileID: 5726710651852457261}
+  - {fileID: 7084814717549987100}
 --- !u!1 &3963790801796904934
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1656386627222421836
 RectTransform:
   m_ObjectHideFlags: 0

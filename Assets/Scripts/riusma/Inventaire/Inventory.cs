@@ -7,14 +7,14 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public InventoryData inventoryData;
-    public List<GameObject> slots;
+    [SerializeField] List<GameObject> slots;
 
     void Start()
     {
-        for (int i = 0; i < 6; i++)
+        /*for (int i = 0; i < 6; i++)
         {
             slots.Add(GameObject.Find("Slot" + (i+1).ToString()));
-        }
+        }*/
 
         if (inventoryData.Inventaire.Count != 0)
         {

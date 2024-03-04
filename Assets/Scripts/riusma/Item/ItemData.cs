@@ -5,6 +5,5 @@ public class ItemData : Resetable
 {
     public string Name;
     public string Description;
-    public GameObject ButtonPrefab;
     public Sprite IconeItem;
 }
