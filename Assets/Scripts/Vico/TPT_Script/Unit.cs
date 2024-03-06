@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,9 +28,15 @@ public class Unit : MonoBehaviour
 
     public bool Enemy;
 
+    public float def;
+
+    public bool isDef => def == 1;
+
+    public Competence[] competences;
+
     public bool TakeDamge(int dmg)
     {
-        currentHP -= dmg;
+        currentHP -= (int)Math.Round(dmg*def);
 
         return IsDead;
     }
@@ -39,4 +46,18 @@ public class Unit : MonoBehaviour
         Progression += 1 * (attackSpeed * Time.deltaTime); // Incrémente la valeur "progression" de l'unité
         BarreProg.value = Progression;
     }
+
+    public void BeingHeal(int heal)
+    {
+        if(currentHP + heal == maxHP)
+        {
+            currentHP = maxHP;
+        }
+
+        else{
+            currentHP += heal;
+        }
+    }
+
+    
 }

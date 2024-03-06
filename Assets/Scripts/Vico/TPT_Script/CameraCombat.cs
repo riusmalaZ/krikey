@@ -14,7 +14,7 @@ public class CameraCombat : MonoBehaviour
 
     private Vector3 offset;
 
-    bool direction = false;
+    
 
     float horizontalInput;
 
@@ -38,14 +38,14 @@ public class CameraCombat : MonoBehaviour
                 // Va chercher la rotationSpeed à appliquer à l'input
                 Debug.Log("E");
                 horizontalInput = 1f * rotationSpeed;
-                direction = true;
+                
             }       // Défini l'input pour tourner à
             else if (Input.GetKey(KeyCode.Q) == false) 
             {
                 // Va chercher la rotationSpeed à appliquer à l'input
                 Debug.Log("Q");
                 horizontalInput = -1f * rotationSpeed;
-                direction = true;
+                
             }
 
             transform.RotateAround(target.position, Vector3.up, horizontalInput * Time.deltaTime);

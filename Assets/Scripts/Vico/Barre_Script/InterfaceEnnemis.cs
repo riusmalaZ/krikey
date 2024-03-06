@@ -87,7 +87,7 @@ public class InterfaceEnnemis : MonoBehaviour
     // Méthode appelée lorsqu'un bouton ennemi est cliqué
     void BoutonEnnemiClique(Unit ennemi)
     {
-        battleSysteme.PlayerAttack(ennemi);
+        //battleSysteme.PlayerAttack(ennemi);
     }
 }
 

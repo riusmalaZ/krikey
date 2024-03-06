@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
-    [HideInInspector] public string name;
+    [HideInInspector] public new string name;
 
     public void Equip()
     {
-        foreach (ItemData itemData in GameObject.Find("ItemManager").GetComponent<ItemManager>().ListItems)
+        /*foreach (ItemData itemData in GameObject.Find("ItemManager").GetComponent<ItemManager>().ListItems)
             if (itemData.Name == name) GameObject.Find("Inventory").GetComponent<Inventory>().AddToInventory(itemData);
-        GameObject.Find("Coffre").GetComponent<Coffre>().Clear();
+        GameObject.Find("Coffre").GetComponent<Coffre>().Clear();*/
         
     }
     public void Use()
     {
-        GameObject.Find("Inventory").GetComponent<Inventory>().RemoveToInventory(gameObject.name);
+        //GameObject.Find("Inventory").GetComponent<Inventory>().RemoveToInventory(gameObject.name);
     }
     public void Play()
     {

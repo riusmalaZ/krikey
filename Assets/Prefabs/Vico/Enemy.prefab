@@ -131,3 +131,5 @@ MonoBehaviour:
   BarreProg: {fileID: 0}
   toursRestant: 0
   Enemy: 1
+  def: 1
+  competences: []
