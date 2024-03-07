@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class RaycastManager : MonoBehaviour
 {
-    public GameObject objetTouche;
+    GameObject objetTouche;
     public Transform posCam;
     [SerializeField] GameObject buttonPlay;
     public Material[] materials;
     [HideInInspector] public GameObject objSelec;
-    public GameObject objInst;
+    GameObject objInst;
+    public GameObject iconePerso;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class RaycastManager : MonoBehaviour
             {
                 
                 posCam.position = new Vector3(objetTouche.transform.position.x, 0, -10);
+                iconePerso.transform.position = new Vector3(objetTouche.transform.position.x, objetTouche.transform.position.y - 1.5f, -0.15f);
                 if (objSelec != null) objSelec.GetComponent<SpriteRenderer>().material = materials[0];
                 objetTouche.GetComponent<SpriteRenderer>().material = materials[1];
                 objSelec = objetTouche;

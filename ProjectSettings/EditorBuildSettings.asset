@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Marius/MainMenu.unity
+    guid: 04f7f1d181603fc41baf882aef6d11c5
   - enabled: 1
-    path: Assets/Scenes/Vico/Sauvegarde/Sauvegarde_1.unity
-    guid: 869d0f6825065dd488d1f78a352d2ef8
-  - enabled: 1
-    path: Assets/Scenes/Vico/Sauvegarde/Sauvegarde_2.unity
-    guid: 1c905b5d9e23fd0489f81d018ea38b13
+    path: Assets/Scenes/Marius/Rogue.unity
+    guid: b07022110f27e4c4c95f4acad5b298de
   m_configObjects: {}

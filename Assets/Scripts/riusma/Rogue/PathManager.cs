@@ -10,12 +10,14 @@ public class PathManager : MonoBehaviour
     [SerializeField] PositionData positionData;
     GameObject pointPerso;
     public RaycastManager raycastManager;
+    
 
 
     void Start()
     { 
         InitEntirePath();
         pointPerso = entirePath[positionData.position.x][positionData.position.y];
+        raycastManager.iconePerso.transform.position = new Vector3(pointPerso.transform.position.x, pointPerso.transform.position.y - 1.5f, -0.15f);
         raycastManager.posCam.position = new Vector3 (pointPerso.transform.position.x, 0, -10);
         if (positionData.position.y != entirePath[positionData.position.x].Count - 1)
         {
