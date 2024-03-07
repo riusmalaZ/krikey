@@ -123,13 +123,12 @@ MonoBehaviour:
   unitName: Enemy 2
   unitLevel: 1
   damage: 1
-  heal: 0
-  maxHP: 5
-  currentHP: 5
+  maxHP: 200
+  currentHP: 200
   attackSpeed: 10
-  Progression: 0
-  BarreProg: {fileID: 0}
+  def: 1
   toursRestant: 0
   Enemy: 1
-  def: 1
   competences: []
+  Progression: 0
+  BarreProg: {fileID: 0}

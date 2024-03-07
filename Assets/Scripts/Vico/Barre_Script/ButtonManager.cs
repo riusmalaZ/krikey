@@ -86,8 +86,6 @@ public class ButtonManager: MonoBehaviour
                 unit = playerUnits[currentIndex];
                 texts.text = unit.unitName;
 
-                
-                
                 button.onClick.AddListener(() => BoutonPlayerClique(playerUnits[currentIndex]));
                 Debug.Log(unit.unitName);
             }

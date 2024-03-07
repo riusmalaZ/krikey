@@ -6,33 +6,45 @@ using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
-
+    [Header("Nom de l'unité")]
+    [Space]
     public string unitName;
+
+    [Header("Statistique de l'unité")]
+    [Space]
     public int unitLevel;
 
     public int damage;
 
-    public int heal;
-
     public int maxHP;
     public int currentHP;
     public int attackSpeed;
-
-    public bool IsDead => currentHP <= 0;
-
-    public float Progression;
-
-    public Slider BarreProg;
+    public float def;
 
     public int toursRestant;
 
+    [Header("Ennemis ou Personnage")]
+    [Space]
     public bool Enemy;
 
-    public float def;
+    [Header("Compétence :")]
+    [Space]
+    public Competence[] competences;
 
+    [HideInInspector]
+    public bool IsDead => currentHP <= 0;
+
+    [HideInInspector]
+    public float Progression;
+
+    public Slider BarreProg;
+    
+    [HideInInspector]
     public bool isDef => def == 1;
 
-    public Competence[] competences;
+    [HideInInspector]
+    public List<Status> statuses = new();
+
 
     public bool TakeDamge(int dmg)
     {
@@ -59,5 +71,38 @@ public class Unit : MonoBehaviour
         }
     }
 
-    
+    public void ApplyStatus(StatusEffect effect, int NbTours, Unit Attaquant)
+    {
+        if(!effect.Stackable)
+        {
+            foreach (Status status in statuses)
+            {
+                if(status.effect == effect && effect.CanBeRefresh)
+                {
+                    if(status.NbTours < effect.duration)
+                    {
+                        status.Refresh();
+                    }
+
+                    return;
+                }
+            }
+        }
+        
+        statuses.Add(new Status(effect, NbTours,  Attaquant));
+
+    }
+
+    public void RemoveStatus(Status status)
+    {
+        statuses.Remove(status);
+    }
+
+    internal void ResolveStatus()
+    {
+        foreach (Status status in statuses)
+        {
+            status.Resolve(this);
+        }
+    }
 }

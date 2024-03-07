@@ -10,5 +10,7 @@ public class Competence : ScriptableObject
     public string nom;
     public int Cooldown;
 
-    public Effect effect;
+    public List<Effect> effect;
+
+    public List<int> IndiceCrystale = new();
 }

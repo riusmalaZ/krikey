@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
-  m_Name: Attaque
+  m_Script: {fileID: 11500000, guid: e4f91a97505e3054db301011cad62f92, type: 3}
+  m_Name: Saignement
   m_EditorClassIdentifier: 
-  friendly: 0
-  nom: Atake
-  Cooldown: 0
-  effect:
-  - {fileID: 11400000, guid: 7da4ca082f6c9c3458864270d7ce7f49, type: 2}
-  IndiceCrystale: 09000000050000000700000006000000
+  Stackable: 0
+  CanBeRefresh: 1
+  duration: 5
+  Pourcentage: 10

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1380403039712674327}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,17 +123,16 @@ MonoBehaviour:
   unitName: 'Joueur 1 '
   unitLevel: 1
   damage: 1
-  heal: 0
-  maxHP: 5
-  currentHP: 5
+  maxHP: 200
+  currentHP: 200
   attackSpeed: 20
-  Progression: 0
-  BarreProg: {fileID: 0}
+  def: 1
   toursRestant: 5
   Enemy: 0
-  def: 1
   competences:
   - {fileID: 11400000, guid: 38eb9afe659f5974e8eaed33e17d09f4, type: 2}
+  - {fileID: 11400000, guid: 83c2998475e065a47b884234af59d490, type: 2}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  Progression: 0
+  BarreProg: {fileID: 0}

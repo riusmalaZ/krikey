@@ -38,7 +38,7 @@ public class BattleSysteme : MonoBehaviour
 
     float chrono = 0;
     
-    [SerializeField] GameObject Curseur;
+    
     [SerializeField] List<Slider> sliders;
 
     [SerializeField] GameObject PlayerAttackButton;
@@ -267,11 +267,26 @@ public class BattleSysteme : MonoBehaviour
 
         PlayerUnit.toursRestant--;
 
-        if(ActionType)
-            competence.effect.Apply(playerUnit, unit);
+        Debug.Log("Player: " + playerUnit.unitName);
+        Debug.Log("Cible: " + unit.unitName);
 
+        if(ActionType)
+        {
+            ChangeCrystale(competence.IndiceCrystale);
+            foreach (Effect effect in competence.effect)
+            {
+                effect.Apply(playerUnit, unit);
+            }
+            
+        }
         else
-            item.effect.Apply(playerUnit, unit, item.valHeal);
+        {
+            ChangeCrystale(competence.IndiceCrystale);
+            foreach (Effect effect in item.effect)
+            {
+                effect.Apply(playerUnit, unit);
+            }
+        }   
 
         bool isDead = unit.IsDead;
 
@@ -331,6 +346,26 @@ public class BattleSysteme : MonoBehaviour
         }
     }
 
+    void ChangeCrystale(List<int> IndiceCrystale)
+    {
+        Dictionary<int, RawImage> Cells = Gamecrystal.cells;
 
+        for (int i = 0; i < IndiceCrystale.Count; i++)
+        {
+            if(Cells.ContainsKey(IndiceCrystale[i]))
+                Cells[IndiceCrystale[i]].color = Color.blue;
+                
+        }
+    }
+
+    void BattleTurnPass()
+    {
+
+    }
+
+    void CharacterTurnPass(Unit unit)
+    {
+        unit.ResolveStatus();
+    }
 }
 

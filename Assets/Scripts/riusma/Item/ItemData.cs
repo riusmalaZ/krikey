@@ -10,5 +10,5 @@ public class ItemData : Resetable
 
     public int valHeal;
 
-    public Effect effect;
+    public Effect[] effect;
 }
