@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Damage", menuName = "ScriptablesObjects/Heal")]
+[CreateAssetMenu(fileName = "Heal", menuName = "ScriptablesObjects/Heal")]
 public class Heal : Effect
 {
     public int value;

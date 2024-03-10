@@ -87,6 +87,8 @@ public class BattleSysteme : MonoBehaviour
     }
 
     public bool ActionType;
+
+    public Gamecrystal gamecrystal;
     
 
     float valMax;
@@ -133,6 +135,7 @@ public class BattleSysteme : MonoBehaviour
             GameObject PlayerGO = Instantiate(PlayerPrefab[i], PlayerStation[i]);
             PlayerUnit = PlayerGO.GetComponent<Unit>();
             unitsList.Add(PlayerUnit, new());
+            PlayerUnit.InitializeStat();
             PlayerUnit.BarreProg = sliders[i];
             PlayerUnit.BarreProg.maxValue = valMax;
             unitsList[PlayerUnit].Add(PlayerGO);
@@ -147,6 +150,7 @@ public class BattleSysteme : MonoBehaviour
             GameObject EnemyGO = Instantiate(EnemyPrefab[i], EnemyStation[i]);
             EnemyUnit = EnemyGO.GetComponent<Unit>();
             unitsList.Add(EnemyUnit, new());
+            EnemyUnit.InitializeStat();
             EnemyUnit.BarreProg = sliders[EnemyPrefab.Count + i];
             EnemyUnit.BarreProg.maxValue = valMax;
             unitsList[EnemyUnit].Add(EnemyGO);
@@ -272,7 +276,8 @@ public class BattleSysteme : MonoBehaviour
 
         if(ActionType)
         {
-            ChangeCrystale(competence.IndiceCrystale);
+            gamecrystal.ChangeCrystale(competence.IndiceCrystale, false);
+            gamecrystal.CompteTours--;
             foreach (Effect effect in competence.effect)
             {
                 effect.Apply(playerUnit, unit);
@@ -281,12 +286,16 @@ public class BattleSysteme : MonoBehaviour
         }
         else
         {
-            ChangeCrystale(competence.IndiceCrystale);
+            gamecrystal.ChangeCrystale(competence.IndiceCrystale, false);
+            gamecrystal.CompteTours--;
             foreach (Effect effect in item.effect)
             {
                 effect.Apply(playerUnit, unit);
             }
         }   
+
+        if(gamecrystal.CompteTours == 0)
+            gamecrystal.AutoDestruction();
 
         bool isDead = unit.IsDead;
 
@@ -346,17 +355,7 @@ public class BattleSysteme : MonoBehaviour
         }
     }
 
-    void ChangeCrystale(List<int> IndiceCrystale)
-    {
-        Dictionary<int, RawImage> Cells = Gamecrystal.cells;
-
-        for (int i = 0; i < IndiceCrystale.Count; i++)
-        {
-            if(Cells.ContainsKey(IndiceCrystale[i]))
-                Cells[IndiceCrystale[i]].color = Color.blue;
-                
-        }
-    }
+    
 
     void BattleTurnPass()
     {
@@ -366,6 +365,7 @@ public class BattleSysteme : MonoBehaviour
     void CharacterTurnPass(Unit unit)
     {
         unit.ResolveStatus();
+        unit.TurnLessBoost();
     }
 }
 

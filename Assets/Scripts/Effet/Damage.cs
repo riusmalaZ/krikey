@@ -9,5 +9,6 @@ public class Damage : Effect
     public override void Apply(Unit unitLancer, Unit unitReceveur)
     {
         unitReceveur.TakeDamge(unitLancer.damage);
+    
     }
 }

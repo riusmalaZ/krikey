@@ -17,8 +17,9 @@ public class Unit : MonoBehaviour
     public int damage;
 
     public int maxHP;
-    public int currentHP;
+
     public int attackSpeed;
+    
     public float def;
 
     public int toursRestant;
@@ -45,23 +46,49 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public List<Status> statuses = new();
 
+    [HideInInspector]
+    public List<Boost> Boosts = new();
+
+    [HideInInspector]
+    public bool stun = false;
+
+    [HideInInspector]
+    public int currentHP;
+
+    [HideInInspector]
+    public int currentAttSpeed;
+
+    [HideInInspector]
+    public float currentDef;
+
+    [HideInInspector]
+    public float currentDamage;
+
+
+    public void InitializeStat()
+    {
+        currentHP = maxHP;
+        currentAttSpeed  = attackSpeed;
+        currentDamage = damage;
+        currentDef = def;
+    }
 
     public bool TakeDamge(int dmg)
     {
-        currentHP -= (int)Math.Round(dmg*def);
+        currentHP -= (int)Math.Round(dmg*currentDef);
 
         return IsDead;
     }
 
     public void Progress()
     {
-        Progression += 1 * (attackSpeed * Time.deltaTime); // Incrémente la valeur "progression" de l'unité
+        Progression += 1 * (currentAttSpeed * Time.deltaTime); // Incrémente la valeur "progression" de l'unité
         BarreProg.value = Progression;
     }
 
     public void BeingHeal(int heal)
     {
-        if(currentHP + heal == maxHP)
+        if(currentHP + heal >= maxHP)
         {
             currentHP = maxHP;
         }
@@ -103,6 +130,37 @@ public class Unit : MonoBehaviour
         foreach (Status status in statuses)
         {
             status.Resolve(this);
+        }
+    }
+
+
+    public void RemoveBoost(Boost boost)
+    {
+        Boosts.Remove(boost);
+    }
+
+    public void ApplyBoost(BoostEffect boostEffect, int NbTours, Unit Receveur)
+    {
+        if(!boostEffect.Stackable)
+        {
+            foreach (Boost boost in Boosts)
+            {
+                if(boost.boost == boostEffect && boostEffect.CanBeRefresh)
+                {
+                    if(boost.NbTours < boostEffect.Duration)
+                        boost.Refresh();
+                }
+            }
+        }
+
+        Boosts.Add(new Boost(boostEffect, NbTours, Receveur));
+    }
+
+    internal void TurnLessBoost()
+    {
+        foreach (Boost boost in Boosts)
+        {
+            boost.TurnLess(this);
         }
     }
 }

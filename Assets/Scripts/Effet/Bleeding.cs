@@ -11,4 +11,6 @@ public class Bleeding : StatusEffect
     {
         unitReceveur.TakeDamge(unitReceveur.maxHP*Pourcentage/100);
     }
+
+    
 }

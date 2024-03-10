@@ -2,47 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Status
+public class Boost
 {
+    public Unit Receveur;
 
-    public Unit Attaquant;
-    public StatusEffect effect;
+    public BoostEffect boost;
 
     public int NbTours;
 
     private int NbToursTotal;
-    public Status(StatusEffect effect, int NbTours,  Unit Attaquant)
+
+    public Boost(BoostEffect boost, int NbTours, Unit Receveur)
     {
-        this.effect = effect;
+        this.boost = boost;
         this.NbTours = NbTours;
         this.NbToursTotal = NbTours;
-        this.Attaquant = Attaquant;
-    }
+        this.Receveur = Receveur;
+    }    
 
     public void Refresh()
     {
         NbTours = NbToursTotal;
     }
 
-    public void Resolve(Unit Receveur)
+    public void TurnLess(Unit Receveur)
     {
         if(NbTours == 0)
             return;
-        
-
-        
-        effect.Resolve(Attaquant, Receveur);
-
-         
-
 
         NbTours--;
-        
+
         if(NbTours == 0)
         {
-            Receveur.RemoveStatus(this);
-
-            
+            boost.ResetStat(Receveur);
+            Receveur.RemoveBoost(this);
         }
     }
 }

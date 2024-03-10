@@ -14,6 +14,8 @@ public abstract class StatusEffect : Effect
 
     public int duration;
 
+    public bool isTickable;
+
     public override void Apply(Unit unitLancer, Unit unitReceveur)
     {
         unitReceveur.ApplyStatus(this, duration, unitLancer);
