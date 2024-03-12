@@ -59,7 +59,7 @@ public class PathManager : MonoBehaviour
         {
             listeDataPath.Add(Paths[i].GetComponent<RoguePath>());
         }
-        List<GameObject> listObj;
+
         for (int i = 0; i < listeDataPath.Count; i++)
         {
             entirePath.Add(listeDataPath[i].Path);
