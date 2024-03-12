@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> Paths;
+    public List<GameObject> Paths;
     List<List<GameObject>> entirePath = new List<List<GameObject>>();
     [SerializeField] PositionData positionData;
     GameObject pointPerso;
     public RaycastManager raycastManager;
-    
+    public GameObject Grille1;
+    public GameObject Grille2;
 
 
     void Start()
-    { 
+    {
+        InitListPath();
         InitEntirePath();
         pointPerso = entirePath[positionData.position.x][positionData.position.y];
         raycastManager.iconePerso.transform.position = new Vector3(pointPerso.transform.position.x, pointPerso.transform.position.y - 1.5f, -0.15f);
-        raycastManager.posCam.position = new Vector3 (pointPerso.transform.position.x, 0, -10);
+        raycastManager.posCam.position = new Vector3 (pointPerso.transform.position.x, 3, -10);
         if (positionData.position.y != entirePath[positionData.position.x].Count - 1)
         {
             entirePath[positionData.position.x][positionData.position.y + 1].GetComponent<BoxCollider2D>().enabled = true;
@@ -28,14 +30,17 @@ public class PathManager : MonoBehaviour
             foreach (List<GameObject> liste in entirePath)
             {
                 if (liste[0] == pointPerso)
-                {
+                { 
                     liste[1].GetComponent<BoxCollider2D>().enabled = true;
                 }
             }
         }
 
     }
-
+    /*void Update()
+    {
+        if (entirePath.Count == 0) Init();
+    }*/
     public void NextPoint()
     {
         int x = 0;
@@ -52,6 +57,18 @@ public class PathManager : MonoBehaviour
         }
     }
 
+    void InitListPath()
+    {
+        for (int i = 0; i < Grille1.transform.childCount - 1; i++)
+        {
+            Paths.Add(Grille1.transform.GetChild(i + 1).gameObject);
+        }
+        for (int i = 0; i < Grille2.transform.childCount - 1; i++)
+        {
+            Paths.Add(Grille2.transform.GetChild(i + 1).gameObject);
+        }
+    }
+
     void InitEntirePath()
     {
         List<RoguePath> listeDataPath = new List<RoguePath>();
@@ -65,5 +82,43 @@ public class PathManager : MonoBehaviour
             entirePath.Add(listeDataPath[i].Path);
         }
         
+        for (int i = 0; i < entirePath.Count; i++)
+        {
+            for (int j = 0; j < entirePath[i].Count; j++)
+            {
+                LineRenderer lineRenderer = entirePath[i][j].GetComponent<LineRenderer>();
+                if (j != entirePath[i].Count - 1 && j != 0)
+                {
+                    lineRenderer.positionCount = 2;
+                    lineRenderer.startWidth = 0.1f;
+                    lineRenderer.endWidth = 0.1f;
+                    lineRenderer.SetPosition(0, new Vector3(entirePath[i][j].transform.position.x, entirePath[i][j].transform.position.y, 0));
+                    lineRenderer.SetPosition(1, new Vector3(entirePath[i][j+1].transform.position.x, entirePath[i][j+1].transform.position.y, 0));
+                }
+                else
+                {
+                    lineRenderer.positionCount = 4;
+                    lineRenderer.startWidth = 0.1f;
+                    lineRenderer.endWidth = 0.1f;
+                    bool find1 = false;
+                    foreach (List<GameObject> listObj in entirePath)
+                    {
+                        if (listObj[0] == entirePath[i][j])
+                        { 
+                            
+                            if (find1 == false)
+                            {
+                                lineRenderer.SetPosition(0, new Vector3(entirePath[i][j].transform.position.x, entirePath[i][j].transform.position.y, 0));
+                                lineRenderer.SetPosition(1, new Vector3(listObj[1].transform.position.x, listObj[1].transform.position.y, 0));
+                                find1 = true;
+                            }
+                            lineRenderer.SetPosition(2, new Vector3(entirePath[i][j].transform.position.x, entirePath[i][j].transform.position.y, 0));
+                            lineRenderer.SetPosition(3, new Vector3(listObj[1].transform.position.x, listObj[1].transform.position.y, 0));
+
+                        }
+                    }
+                }
+            }
+        }
     }
 }

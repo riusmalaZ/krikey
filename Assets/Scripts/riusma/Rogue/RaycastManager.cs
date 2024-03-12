@@ -29,7 +29,7 @@ public class RaycastManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 
-                posCam.position = new Vector3(objetTouche.transform.position.x, 0, -10);
+                posCam.position = new Vector3(objetTouche.transform.position.x, 3, -10);
                 iconePerso.transform.position = new Vector3(objetTouche.transform.position.x, objetTouche.transform.position.y - 1.5f, -0.15f);
                 if (objSelec != null) objSelec.GetComponent<SpriteRenderer>().material = materials[0];
                 objetTouche.GetComponent<SpriteRenderer>().material = materials[1];
