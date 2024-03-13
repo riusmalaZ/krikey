@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
     [HideInInspector] public new string name;
-
+    [HideInInspector] public string lvlSelected;
     public void Equip()
     {
         /*foreach (ItemData itemData in GameObject.Find("ItemManager").GetComponent<ItemManager>().ListItems)
@@ -22,6 +22,21 @@ public class ButtonScript : MonoBehaviour
     public void Play()
     {
         GameObject.Find("PathManager").GetComponent<PathManager>().NextPoint();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+        if (lvlSelected == "combat")
+        {
+            print("bats toi fumier");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else if (lvlSelected == "coffre")
+        {
+            print("la kichta O___o");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else 
+        {
+            print("azy ya r");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);    
+        }
     }
 }

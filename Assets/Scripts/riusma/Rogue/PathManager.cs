@@ -10,12 +10,24 @@ public class PathManager : MonoBehaviour
     [SerializeField] PositionData positionData;
     GameObject pointPerso;
     public RaycastManager raycastManager;
-    public GameObject Grille1;
-    public GameObject Grille2;
+    GameObject Grille1;
+    GameObject Grille2;
+    [SerializeField] GameObject[] Grilles1;
+    [SerializeField] GameObject[] Grilles2;
 
 
     void Start()
     {
+        if (positionData.nGrille1<0)
+        {
+            positionData.nGrille1 = Random.Range(0, Grilles1.Length);
+            positionData.nGrille2 = Random.Range(0, Grilles2.Length);
+        }
+        
+        Grille1 = Grilles1[positionData.nGrille1];
+        Grille2 = Grilles2[positionData.nGrille2];
+        foreach (GameObject grille in Grilles1) if (grille != Grille1) grille.SetActive(false);
+        foreach (GameObject grille in Grilles2) if (grille != Grille2) grille.SetActive(false);
         InitListPath();
         InitEntirePath();
         pointPerso = entirePath[positionData.position.x][positionData.position.y];
@@ -37,10 +49,8 @@ public class PathManager : MonoBehaviour
         }
 
     }
-    /*void Update()
-    {
-        if (entirePath.Count == 0) Init();
-    }*/
+
+    
     public void NextPoint()
     {
         int x = 0;

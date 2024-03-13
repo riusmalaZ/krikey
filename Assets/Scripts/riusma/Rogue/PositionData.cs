@@ -6,4 +6,6 @@ using UnityEngine;
 public class PositionData : Resetable
 {
     public Vector2Int position;
+    public int nGrille1;
+    public int nGrille2;
 }

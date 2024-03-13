@@ -8,15 +8,11 @@ public class RaycastManager : MonoBehaviour
     GameObject objetTouche;
     public Transform posCam;
     [SerializeField] GameObject buttonPlay;
-    public Material[] materials;
     [HideInInspector] public GameObject objSelec;
     GameObject objInst;
     public GameObject iconePerso;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     void Update()
     {
@@ -31,13 +27,13 @@ public class RaycastManager : MonoBehaviour
                 
                 posCam.position = new Vector3(objetTouche.transform.position.x, 3, -10);
                 iconePerso.transform.position = new Vector3(objetTouche.transform.position.x, objetTouche.transform.position.y - 1.5f, -0.15f);
-                if (objSelec != null) objSelec.GetComponent<SpriteRenderer>().material = materials[0];
-                objetTouche.GetComponent<SpriteRenderer>().material = materials[1];
                 objSelec = objetTouche;
                 if (objInst == null || objInst.transform.parent.gameObject != objSelec)
                 {
                     Destroy(objInst);
                     objInst = Instantiate(buttonPlay, objSelec.transform);
+                    objInst.transform.position += new Vector3(0,0,-0.1f);
+                    objInst.GetComponentInChildren<ButtonScript>().lvlSelected = objSelec.GetComponent<SpriteRenderer>().sprite.name;
                 }
             }
 
@@ -46,7 +42,6 @@ public class RaycastManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (objSelec != null) objSelec.GetComponent<SpriteRenderer>().material = materials[0];
                 if (objInst != null) Destroy(objInst.gameObject);
                 objSelec = null;
             }
