@@ -8,6 +8,7 @@ public class ButtonScript : MonoBehaviour
 {
     [HideInInspector] public new string name;
     [HideInInspector] public string lvlSelected;
+
     public void Equip()
     {
         /*foreach (ItemData itemData in GameObject.Find("ItemManager").GetComponent<ItemManager>().ListItems)
@@ -22,21 +23,38 @@ public class ButtonScript : MonoBehaviour
     public void Play()
     {
         GameObject.Find("PathManager").GetComponent<PathManager>().NextPoint();
-        
+
+
         if (lvlSelected == "combat")
         {
             print("bats toi fumier");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ReloadScene();
         }
         else if (lvlSelected == "coffre")
         {
             print("la kichta O___o");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ReloadScene();
+        }
+        else if (lvlSelected == "etoile_event")
+        {
+            GameObject.Find("RaycastManager").GetComponent<RaycastManager>().objScenar[0].SetActive(true);
+        }
+        else if (lvlSelected == "etoile_event1")
+        {
+            GameObject.Find("RaycastManager").GetComponent<RaycastManager>().objScenar[1].SetActive(true);
+        }
+        else if (lvlSelected == "etoile_event2")
+        {
+            GameObject.Find("RaycastManager").GetComponent<RaycastManager>().objScenar[2].SetActive(true);
         }
         else 
         {
             print("azy ya r");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);    
+               
         }
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
