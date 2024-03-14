@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f6db85fcbc2c4449400b731c0f443e, type: 3}
   m_Name: PositionData
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0}
-  nGrille1: -1
-  nGrille2: -1
+  position: {x: 0, y: 2}
+  nGrille1: 0
+  nGrille2: 1

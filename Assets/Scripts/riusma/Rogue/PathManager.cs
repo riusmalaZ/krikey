@@ -32,7 +32,7 @@ public class PathManager : MonoBehaviour
         InitEntirePath();
         pointPerso = entirePath[positionData.position.x][positionData.position.y];
         raycastManager.iconePerso.transform.position = new Vector3(pointPerso.transform.position.x, pointPerso.transform.position.y - 1.5f, -0.15f);
-        raycastManager.posCam.position = new Vector3 (pointPerso.transform.position.x, 3, -10);
+        raycastManager.Setup(new Vector3(pointPerso.transform.position.x, 3, -10));
         if (positionData.position.y != entirePath[positionData.position.x].Count - 1)
         {
             entirePath[positionData.position.x][positionData.position.y + 1].GetComponent<BoxCollider2D>().enabled = true;

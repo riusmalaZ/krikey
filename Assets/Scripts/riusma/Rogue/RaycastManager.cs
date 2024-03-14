@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using UnityEngine;
 
 public class RaycastManager : MonoBehaviour
@@ -11,8 +12,14 @@ public class RaycastManager : MonoBehaviour
     [HideInInspector] public GameObject objSelec;
     GameObject objInst;
     public GameObject iconePerso;
+    Vector3 posInit;
+    bool setup = false;
     // Start is called before the first frame update
     
+    void Start()
+    {
+        posInit = posCam.position;
+    }
 
     void Update()
     {
@@ -25,7 +32,7 @@ public class RaycastManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 
-                posCam.position = new Vector3(objetTouche.transform.position.x, 3, -10);
+                posInit = new Vector3(objetTouche.transform.position.x, 3, -10);
                 iconePerso.transform.position = new Vector3(objetTouche.transform.position.x, objetTouche.transform.position.y - 1.5f, -0.15f);
                 objSelec = objetTouche;
                 if (objInst == null || objInst.transform.parent.gameObject != objSelec)
@@ -46,5 +53,14 @@ public class RaycastManager : MonoBehaviour
                 objSelec = null;
             }
         }
+
+        if (setup) posCam.position = Vector3.Lerp(posCam.position, posInit, 3 * Time.deltaTime);
+    }
+
+    public void Setup(Vector3 position)
+    {
+        setup = true;
+        posCam.position = position;
+        posInit = position;
     }
 }
