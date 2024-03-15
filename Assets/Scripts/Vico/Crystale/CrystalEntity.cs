@@ -16,6 +16,6 @@ public class CrystalEntity : Gamecrystal
     protected virtual void RegisterToCrystal()
     {
         int.TryParse(gameObject.name, out int valeur);
-        Gamecrystal.RegisterToCrystal(valeur, gameObject.GetComponent<RawImage>());
+        Gamecrystal.RegisterToCrystal(valeur, gameObject.GetComponent<Image>());
     }
 }

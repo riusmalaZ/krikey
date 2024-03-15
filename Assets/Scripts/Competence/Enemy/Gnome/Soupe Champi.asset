@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
+  m_Name: Soupe Champi
+  m_EditorClassIdentifier: 
+  friendly: 1
+  nom: Soupe Champi
+  Cooldown: 1
+  actualCooldown: 0
+  isSelf: 0
+  MultiTarget: 1
+  effect:
+  - {fileID: 11400000, guid: 0fd6484cc2a949e4e97324d7edd627d5, type: 2}
+  IndiceCrystale: 090000000400000008000000

@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public float Progression;
 
-    public Slider BarreProg;
+    //public Slider BarreProg;
     
     [HideInInspector]
     public bool isDef => def == 1;
@@ -52,7 +52,7 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public bool stun = false;
 
-    [HideInInspector]
+    //[HideInInspector]
     public int currentHP;
 
     [HideInInspector]
@@ -64,6 +64,10 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public float currentDamage;
 
+    [HideInInspector]
+    public bool isProvoc = false;
+
+    public Texture Icone;
 
     public void InitializeStat()
     {
@@ -73,9 +77,12 @@ public class Unit : MonoBehaviour
         currentDef = def;
     }
 
-    public bool TakeDamge(int dmg)
+    public bool TakeDamge(int dmg, float pourcentage)
     {
-        currentHP -= (int)Math.Round(dmg*currentDef);
+        Debug.Log(pourcentage);
+        int dmgs = (int)(dmg*(pourcentage/100));
+
+        currentHP -= (int)Math.Round(dmgs*currentDef);
 
         return IsDead;
     }
@@ -83,7 +90,7 @@ public class Unit : MonoBehaviour
     public void Progress()
     {
         Progression += 1 * (currentAttSpeed * Time.deltaTime); // Incrémente la valeur "progression" de l'unité
-        BarreProg.value = Progression;
+        //BarreProg.value = Progression;
     }
 
     public void BeingHeal(int heal)
@@ -116,7 +123,7 @@ public class Unit : MonoBehaviour
             }
         }
         
-        statuses.Add(new Status(effect, NbTours,  Attaquant));
+        statuses.Add(new Status(effect, NbTours,  Attaquant, effect.nefaste));
 
     }
 
@@ -127,9 +134,12 @@ public class Unit : MonoBehaviour
 
     internal void ResolveStatus()
     {
-        foreach (Status status in statuses)
+        if(statuses.Count != 0)
         {
-            status.Resolve(this);
+            foreach (Status status in statuses)
+            {
+                status.Resolve(this);
+            }
         }
     }
 
@@ -153,7 +163,7 @@ public class Unit : MonoBehaviour
             }
         }
 
-        Boosts.Add(new Boost(boostEffect, NbTours, Receveur));
+        Boosts.Add(new Boost(boostEffect, NbTours, Receveur , boostEffect.nefaste));
     }
 
     internal void TurnLessBoost()

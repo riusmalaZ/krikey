@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
+  m_Name: Morsure
+  m_EditorClassIdentifier: 
+  friendly: 0
+  nom: Morsure
+  Cooldown: 2
+  actualCooldown: 0
+  isSelf: 0
+  MultiTarget: 0
+  effect:
+  - {fileID: 11400000, guid: ec50712bb019fe54db87b5369c830476, type: 2}
+  IndiceCrystale: 0100000007000000

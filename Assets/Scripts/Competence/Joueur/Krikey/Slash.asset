@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
+  m_Name: Slash
+  m_EditorClassIdentifier: 
+  friendly: 0
+  nom: Slash
+  Cooldown: 2
+  actualCooldown: 0
+  isSelf: 0
+  MultiTarget: 1
+  effect:
+  - {fileID: 11400000, guid: 17f9a75b27780b74c94af1982e493fb8, type: 2}
+  IndiceCrystale: 010000000300000008000000
+  Crystale: {fileID: 2800000, guid: c191da97b94735148877a48fcf01c1b4, type: 3}
+  Ponderation: 0

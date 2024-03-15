@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
+  m_Name: Frappe Lourde
+  m_EditorClassIdentifier: 
+  friendly: 0
+  nom: Frappe Lourde
+  Cooldown: 3
+  actualCooldown: 0
+  isSelf: 0
+  MultiTarget: 0
+  effect:
+  - {fileID: 11400000, guid: 1f90eca1da0b2b045ba53b6bcde917da, type: 2}
+  - {fileID: 11400000, guid: edb1d46169736ab48a04a9f8ee29e888, type: 2}
+  IndiceCrystale: 0500000006000000
+  Crystale: {fileID: 2800000, guid: 77569370ae6fe0d44882d962b73f8628, type: 3}
+  Ponderation: 0

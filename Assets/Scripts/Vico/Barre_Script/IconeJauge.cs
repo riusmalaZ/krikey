@@ -10,12 +10,16 @@ public class IconeJauge : MonoBehaviour
     public Unit Icone;
 
     private float maxWidth; // Largeur maximale de la barre
+
+    
     // Start is called before the first frame update
     void Start()
     {
-        GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
-        Icone = gameObject.GetComponent<Unit>();
-        maxWidth = bar.sizeDelta.x;
+        //GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
+        //Icone = gameObject.GetComponent<Unit>();
+        maxWidth = bar.sizeDelta.y;
+        
+        
     }
 
     // Update is called once per frame

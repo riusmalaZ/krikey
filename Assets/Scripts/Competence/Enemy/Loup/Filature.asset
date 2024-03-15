@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
+  m_Name: Filature
+  m_EditorClassIdentifier: 
+  friendly: 1
+  nom: Filature
+  Cooldown: 3
+  actualCooldown: 0
+  isSelf: 1
+  MultiTarget: 0
+  effect:
+  - {fileID: 11400000, guid: 849cb42a130608e4da2d62e966c17b52, type: 2}
+  - {fileID: 11400000, guid: bc27545f14670f94491dc8a61308e039, type: 2}
+  IndiceCrystale: 0400000008000000

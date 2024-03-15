@@ -10,9 +10,18 @@ public class Competence : ScriptableObject
     public string nom;
     public int Cooldown;
 
+    public int actualCooldown;
+
+    public bool isSelf = false;
+
     public bool MultiTarget = false;
 
     public List<Effect> effect;
 
     public List<int> IndiceCrystale = new();
+
+    public Texture Crystale;
+
+    [HideInInspector]
+    public int Ponderation;
 }

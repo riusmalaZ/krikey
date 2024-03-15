@@ -73,7 +73,7 @@ public class BattleSystem : MonoBehaviour
 
         texts.text = PlayerUnit.unitName;
 
-        bool isDead = EnemyUnit.TakeDamge(PlayerUnit.damage);
+        bool isDead = false;
         Debug.Log( EnemyUnit.unitName + ": " +EnemyUnit.currentHP);
 
         yield return new WaitForSeconds(2f);
@@ -126,7 +126,7 @@ public class BattleSystem : MonoBehaviour
 
         texts.text = EnemyUnit.unitName;
 
-        bool isDead = PlayerUnit.TakeDamge(EnemyUnit.damage);
+        bool isDead = false;
 
         Debug.Log(PlayerUnit.unitName + ": " + PlayerUnit.currentHP);
 

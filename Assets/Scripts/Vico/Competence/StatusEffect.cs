@@ -16,6 +16,12 @@ public abstract class StatusEffect : Effect
 
     public bool isTickable;
 
+    public bool isBattleTurn;
+
+    public bool nefaste;
+
+    
+
     public override void Apply(Unit unitLancer, Unit unitReceveur)
     {
         unitReceveur.ApplyStatus(this, duration, unitLancer);

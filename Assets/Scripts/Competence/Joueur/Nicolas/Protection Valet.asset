@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5273e929ecbe94940b2f955e1762aafa, type: 3}
+  m_Name: Protection Valet
+  m_EditorClassIdentifier: 
+  friendly: 0
+  nom: Protection
+  Cooldown: 0
+  actualCooldown: 0
+  isSelf: 1
+  MultiTarget: 0
+  effect:
+  - {fileID: 11400000, guid: 6cd4a35898990ab418ffca0215ed5f10, type: 2}
+  IndiceCrystale: 030000000200000006000000
+  Crystale: {fileID: 2800000, guid: 103a8ea100c8ad04eb043bb2ebcf1b43, type: 3}
+  Ponderation: 0

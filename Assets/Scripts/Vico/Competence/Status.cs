@@ -11,12 +11,15 @@ public class Status
     public int NbTours;
 
     private int NbToursTotal;
-    public Status(StatusEffect effect, int NbTours,  Unit Attaquant)
+
+    public bool nefaste;
+    public Status(StatusEffect effect, int NbTours,  Unit Attaquant, bool nefaste)
     {
         this.effect = effect;
         this.NbTours = NbTours;
         this.NbToursTotal = NbTours;
         this.Attaquant = Attaquant;
+        this.nefaste = nefaste;
     }
 
     public void Refresh()

@@ -12,6 +12,12 @@ public abstract class BoostEffect : Effect
     public abstract void ResetStat(Unit unitToReset);
     public int Duration;
 
+    public bool isBattleTurn;
+
+    public bool nefaste;
+
+    
+
     public override void Apply(Unit unitLancer, Unit unitReceveur)
     {
         unitReceveur.ApplyBoost(this, Duration, unitLancer);

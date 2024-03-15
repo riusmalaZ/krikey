@@ -37,10 +37,23 @@ public class ButtonManager: MonoBehaviour
 
     [SerializeField]
     InventoryData inventory;
+
+    [SerializeField]
+    List<Slider> slidervie;
     
     void Start()
     {
         AssociationButton();
+    }
+
+    void Update()
+    {
+        List<Unit> playerUnits = battleSysteme.playerUnitList;
+
+        for (int i = 0; i < slidervie.Count; i++)
+        {
+            slidervie[i].value = playerUnits[i].currentHP;
+        }
     }
 
     void AssociationButton()
@@ -62,7 +75,8 @@ public class ButtonManager: MonoBehaviour
                 int currentIndex = i;
                 button = ButtonEnnemis[currentIndex].GetComponent<Button>();
                 texts = ButtonEnnemis[currentIndex].GetComponentInChildren<TextMeshProUGUI>();
-                texts.text = enemyUnits[currentIndex].unitName;
+                texts.text = enemyUnits[currentIndex].unitName + " " + enemyUnits[currentIndex].currentHP.ToString();
+                
                 Debug.Log(currentIndex);
                 button.onClick.AddListener(() => BoutonEnnemiClique(enemyUnits[currentIndex]));
             }
@@ -83,10 +97,12 @@ public class ButtonManager: MonoBehaviour
                 button = ButtonPlayer[currentIndex].GetComponent<Button>();
                 button.onClick.RemoveAllListeners();
                 texts = ButtonPlayer[currentIndex].GetComponentInChildren<TextMeshProUGUI>();
-                unit = playerUnits[currentIndex];
+                Unit unit2 = playerUnits[currentIndex];
                 texts.text = unit.unitName;
 
-                button.onClick.AddListener(() => BoutonPlayerClique(playerUnits[currentIndex]));
+                slidervie[currentIndex].maxValue = unit.maxHP;
+
+                button.onClick.AddListener(() => BoutonPlayerClique(unit2));
                 Debug.Log(unit.unitName);
             }
             
@@ -125,27 +141,54 @@ public class ButtonManager: MonoBehaviour
 
         GameObject @object =null;
 
+        Texture sprite = null;
+
         Debug.Log("Nom du joueur " + player.unitName);
 
         for (int i = 0; i <= competenceList.Length - 1; i++)
         {
-            if(competenceList[i] != null)
+            int y = i;
+            if(competenceList[y] != null)
             {
                 
                 if(i < competenceList.Length)
                 {
-                    ButtonComp[i].SetActive(true);
-                    button = ButtonComp[i].GetComponent<Button>();
-                    texts = ButtonComp[i].GetComponentInChildren<TextMeshProUGUI>();
-                    texts.text = competenceList[i].nom;
-                    Debug.Log(i);
-                    competence = competenceList[i];
-                    @object = ButtonComp[i];
-                    button.onClick.AddListener(() => ButtonCompClique(competence));
+                    if(competenceList[y].actualCooldown != 0)
+                    {
+                        ButtonComp[y].SetActive(true);
+                        button = ButtonComp[y].GetComponent<Button>();
+                        button.enabled = false;
+                        texts = ButtonComp[y].GetComponentInChildren<TextMeshProUGUI>();
+                        sprite = competenceList[y].Crystale;
+                        ButtonComp[y].GetComponentInChildren<RawImage>().texture = sprite;
+                        texts.text = competenceList[y].nom;
+                        texts.color = Color.gray;
+                        Debug.Log(i);
+                        competence = competenceList[y];
+                        var localCompetence = competenceList[y];
+                        @object = ButtonComp[y];
+                        button.onClick.AddListener(() => ButtonCompClique(localCompetence));
+                    }
+                    else
+                    {
+                        ButtonComp[y].SetActive(true);
+                        button = ButtonComp[y].GetComponent<Button>();
+                        button.enabled = true;
+                        texts = ButtonComp[y].GetComponentInChildren<TextMeshProUGUI>();
+                        sprite = competenceList[i].Crystale;
+                        ButtonComp[y].GetComponentInChildren<RawImage>().texture = sprite;
+                        texts.text = competenceList[y].nom;
+                        texts.color = Color.white;
+                        Debug.Log(i);
+                        competence = competenceList[y];
+                        var localCompetence = competenceList[y];
+                        @object = ButtonComp[y];
+                        button.onClick.AddListener(() => ButtonCompClique(localCompetence));
+                    }
                 }
             }
             else
-                ButtonComp[i].SetActive(false);
+                ButtonComp[y].SetActive(false);
                 Debug.Log("Il est null");
         }
     }
@@ -155,7 +198,7 @@ public class ButtonManager: MonoBehaviour
         battleSysteme.Competence = competence;
         battleSysteme.ActionType = true;
         
-        Debug.Log(competence.friendly == false);
+        Debug.Log(competence.nom);
 
         if(competence.friendly == false)
         {

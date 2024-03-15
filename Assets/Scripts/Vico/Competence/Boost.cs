@@ -12,12 +12,15 @@ public class Boost
 
     private int NbToursTotal;
 
-    public Boost(BoostEffect boost, int NbTours, Unit Receveur)
+    public bool nefaste;
+
+    public Boost(BoostEffect boost, int NbTours, Unit Receveur, bool nefaste)
     {
         this.boost = boost;
         this.NbTours = NbTours;
         this.NbToursTotal = NbTours;
         this.Receveur = Receveur;
+        this.nefaste = nefaste;
     }    
 
     public void Refresh()

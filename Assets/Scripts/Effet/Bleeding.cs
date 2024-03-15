@@ -9,7 +9,7 @@ public class Bleeding : StatusEffect
     public int Pourcentage; 
     public override void Resolve(Unit unitLancer,Unit unitReceveur)
     {
-        unitReceveur.TakeDamge(unitReceveur.maxHP*Pourcentage/100);
+        unitReceveur.TakeDamge(unitReceveur.maxHP, Pourcentage);
     }
 
     

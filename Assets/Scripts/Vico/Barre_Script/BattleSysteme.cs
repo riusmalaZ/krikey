@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BattleStates {Start, PlayerTurn, EnemyTurn, Lose, Win, Neutre}
+public enum BattleStates {Start, PlayerTurn, EnemyTurn, Lose, Win, Neutre, Crystal}
 
 public class BattleSysteme : MonoBehaviour
 {
@@ -38,8 +38,8 @@ public class BattleSysteme : MonoBehaviour
 
     float chrono = 0;
     
+    public List<Unit> units1;
     
-    [SerializeField] List<Slider> sliders;
 
     [SerializeField] GameObject PlayerAttackButton;
 
@@ -48,6 +48,8 @@ public class BattleSysteme : MonoBehaviour
     [SerializeField] GameObject PlayerSelectInterface;
 
     [SerializeField] GameObject ObjectInterface;
+
+    public GameObject CrystalInterface;
 
     
     List<GameObject> EnnemisMort = new();
@@ -90,7 +92,7 @@ public class BattleSysteme : MonoBehaviour
 
     public Gamecrystal gamecrystal;
     
-
+    public GoldAUgment goldAUgment;
     float valMax;
 
     // Start is called before the first frame update
@@ -101,6 +103,7 @@ public class BattleSysteme : MonoBehaviour
         PlayerAttackButton.SetActive(false);
         EnnemisInterface.SetActive(false);
         PlayerSelectInterface.SetActive(false);
+
         
         SetupBattle();
     }
@@ -120,6 +123,10 @@ public class BattleSysteme : MonoBehaviour
                     EnemyTurn();
             break;
 
+            case BattleStates.Crystal:
+                
+            break;
+
             case BattleStates.Win:
             case BattleStates.Lose:
                 EndBattle();
@@ -136,10 +143,8 @@ public class BattleSysteme : MonoBehaviour
             PlayerUnit = PlayerGO.GetComponent<Unit>();
             unitsList.Add(PlayerUnit, new());
             PlayerUnit.InitializeStat();
-            PlayerUnit.BarreProg = sliders[i];
-            PlayerUnit.BarreProg.maxValue = valMax;
             unitsList[PlayerUnit].Add(PlayerGO);
-            
+            units1.Add(PlayerUnit);
             PlayerUnitList.Add(PlayerUnit);
             
         
@@ -151,8 +156,7 @@ public class BattleSysteme : MonoBehaviour
             EnemyUnit = EnemyGO.GetComponent<Unit>();
             unitsList.Add(EnemyUnit, new());
             EnemyUnit.InitializeStat();
-            EnemyUnit.BarreProg = sliders[EnemyPrefab.Count + i];
-            EnemyUnit.BarreProg.maxValue = valMax;
+            units1.Add(EnemyUnit);
             unitsList[EnemyUnit].Add(EnemyGO);
             EnemyUnitList.Add(EnemyUnit);
         }
@@ -191,22 +195,51 @@ public class BattleSysteme : MonoBehaviour
 
     void EnemyTurn()
     {
+        GameObject gameObject = unitsList[EnemyUnit][0];
+
+        IAEnemy iAEnemy = gameObject.GetComponent<IAEnemy>();
+
+        iAEnemy.battleSysteme = this;
+
+        Competence competence = null;
+
+        List<Unit> units = new();
+
+        List<Unit> unitDeath = new();
+
+            
         int nb_Player = PlayerUnitList.Count;
 
-        int randomIndex = Random.Range(0, nb_Player);
+        competence = iAEnemy.GetCompetence(EnemyUnit.competences);
 
-        PlayerUnit = PlayerUnitList[randomIndex];
+        units = iAEnemy.GetUnits(competence, EnemyUnit.competences);
 
-        bool isDead = PlayerUnit.TakeDamge(EnemyUnit.damage);
 
-        if(isDead)
+        foreach (Unit unit in units)
         {
-            PlayerMort.Add(unitsList[PlayerUnit][0]);
+            foreach (Effect effect in competence.effect)
+            {
+                effect.Apply(EnemyUnit, unit);
+                if(unit.IsDead)
+                    unitDeath.Add(unit);
+            }   
+        }
 
-            Destroy(unitsList[PlayerUnit][0]);
+        gamecrystal.ChangeCrystale(competence.IndiceCrystale, true);
+
+        competence.actualCooldown = competence.Cooldown;
+
+
+        if(unitDeath.Count != 0)
+        {
+            foreach (Unit unitd in unitDeath)
+            {
+                PlayerMort.Add(unitsList[unitd][0]);
+
+                Destroy(unitsList[unitd][0]);
             
-            unitsList.Remove(PlayerUnit);
-
+                unitsList.Remove(unitd);
+            }
             
 
             if(PlayerMort.Count == nb_Player)
@@ -216,9 +249,30 @@ public class BattleSysteme : MonoBehaviour
         }
 
         EnemyUnit.Progression = 0;
+        if(gamecrystal.WinCheck() && gamecrystal.CompteTours <= 0)
+        {
+            gamecrystal.CrystalClone();
+            CrystalInterface.SetActive(true);
+            return;
+        }
+        else if(gamecrystal.CompteTours <= 0)
+        {
+            gamecrystal.AutoDestruction();
+            BattleTurnPass(units1);
+            CharacterTurnPass(EnemyUnit);
+            return;
+        }
+        else
+            BattleTurnPass(units1);
+            CharacterTurnPass(EnemyUnit);
+
         state = BattleStates.Neutre;
         chrono = 0;
         return; 
+        
+
+        
+        
 
     }
 
@@ -256,6 +310,7 @@ public class BattleSysteme : MonoBehaviour
             return;
         }
 
+        PlayerAttackButton.SetActive(false);
         PlayerUnit.def = 0.5f;
 
         state = BattleStates.Neutre;
@@ -264,6 +319,8 @@ public class BattleSysteme : MonoBehaviour
 
     public void PlayerCompetence(Unit unit)
     {
+
+        
         DeathCheck();
 
         if(PlayerUnit.isDef == false)
@@ -274,34 +331,52 @@ public class BattleSysteme : MonoBehaviour
         Debug.Log("Player: " + playerUnit.unitName);
         Debug.Log("Cible: " + unit.unitName);
 
+        List<Unit> units = new();
+
+        if(unit.Enemy)
+            units = enemyUnitList;
+        else
+            units = playerUnitList;
+
         if(ActionType)
         {
             gamecrystal.ChangeCrystale(competence.IndiceCrystale, false);
-            gamecrystal.CompteTours--;
-            foreach (Effect effect in competence.effect)
+            
+
+            if(competence.MultiTarget)
             {
-                effect.Apply(playerUnit, unit);
+                foreach(Unit unit1 in units)
+                {
+                    foreach (Effect effect in competence.effect)
+                    {
+                        effect.Apply(playerUnit, unit1);
+                    }
+                }
+            }
+
+            else{
+                foreach (Effect effect in competence.effect)
+                {
+                    effect.Apply(playerUnit, unit);
+                }
             }
             
         }
         else
         {
-            gamecrystal.ChangeCrystale(competence.IndiceCrystale, false);
-            gamecrystal.CompteTours--;
             foreach (Effect effect in item.effect)
             {
                 effect.Apply(playerUnit, unit);
             }
+            goldAUgment.ObjectUse();
         }   
 
-        if(gamecrystal.CompteTours == 0)
-            gamecrystal.AutoDestruction();
+        competence.actualCooldown = competence.Cooldown;
 
         bool isDead = unit.IsDead;
 
         Debug.Log( unit.unitName + ": " + unit.currentHP);
-        state = BattleStates.Neutre;
-        PlayerUnit.Progression = 0;
+        
 
         if(unit.Enemy)
         {
@@ -310,7 +385,7 @@ public class BattleSysteme : MonoBehaviour
                 EnnemisMort.Add(unitsList[unit][0]);
                 Destroy(unitsList[unit][0]);
                 Destroy(unitsList[unit][1]);
-                
+                goldAUgment.MobKillGold();
                 unitsList.Remove(unit);
 
                 if(EnnemisMort.Count == EnemyPrefab.Count)
@@ -322,8 +397,24 @@ public class BattleSysteme : MonoBehaviour
 
         else
             PlayerSelectInterface.SetActive(false);
-        
+
+        if(gamecrystal.WinCheck())
+        {
+            PlayerUnit.Progression = 0;
+            DeathCheck();
+            gamecrystal.CrystalClone();
+            CharacterTurnPass(playerUnit);
+            CrystalInterface.SetActive(true);
+            return;
+        }
+
         DeathCheck();
+        //BattleTurnPass(units1);
+        CharacterTurnPass(playerUnit);
+
+        PlayerUnit.Progression = 0;
+
+        state = BattleStates.Neutre;
         
         return;
     }
@@ -331,7 +422,14 @@ public class BattleSysteme : MonoBehaviour
     void EndBattle()
     {
         if(state == BattleStates.Win)
+        {
             Debug.Log("Gagné !");
+            foreach (Unit item in PlayerUnitList)
+            {
+                goldAUgment.PersoEnVie();
+            }
+            goldAUgment.gold.goldTotal += goldAUgment.gold.goldGagne;
+        }
         
         else
             Debug.Log("Perdu !");
@@ -357,15 +455,50 @@ public class BattleSysteme : MonoBehaviour
 
     
 
-    void BattleTurnPass()
+    public void BattleTurnPass(List<Unit> units)
     {
+        if(gamecrystal.CompteTours >= 0)
+            gamecrystal.DesactiveCrystalTours();
 
+        gamecrystal.CompteTours--;
+
+        foreach (Unit unit in units)
+        {
+            foreach (Boost boost in unit.Boosts)
+            {
+            if(boost.boost.isBattleTurn)
+                unit.TurnLessBoost();
+            }
+            foreach (Status status in unit.statuses)
+            {
+            if(status.effect.isBattleTurn)
+                unit.ResolveStatus();
+            }
+        }
+        
     }
 
-    void CharacterTurnPass(Unit unit)
+    public void CharacterTurnPass(Unit unit)
     {
-        unit.ResolveStatus();
-        unit.TurnLessBoost();
+        foreach (Boost boost in unit.Boosts)
+        {
+            if(!boost.boost.isBattleTurn)
+                unit.TurnLessBoost();
+        }
+        foreach (Status status in unit.statuses)
+        {
+            if(!status.effect.isBattleTurn)
+                unit.ResolveStatus();
+        }
+
+        foreach (Competence item in unit.competences)
+        {
+            if(item.actualCooldown != 0)
+                item.actualCooldown--;
+        }
+        
     }
+
+
 }
 
