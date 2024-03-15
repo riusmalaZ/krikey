@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -95,6 +96,17 @@ public class BattleSysteme : MonoBehaviour
     public GoldAUgment goldAUgment;
     float valMax;
 
+    public GameObject ecranVictoire;
+
+    public GameObject ecranDefaite;
+
+    public GameObject finCombat;
+
+    public TextMeshProUGUI goldtot;
+
+    public TextMeshProUGUI goldGa;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -104,7 +116,9 @@ public class BattleSysteme : MonoBehaviour
         EnnemisInterface.SetActive(false);
         PlayerSelectInterface.SetActive(false);
 
-        
+        ecranVictoire.SetActive(false);
+        ecranDefaite.SetActive(false);
+        finCombat.SetActive(false);
         SetupBattle();
     }
 
@@ -161,6 +175,7 @@ public class BattleSysteme : MonoBehaviour
             EnemyUnitList.Add(EnemyUnit);
         }
 
+        goldAUgment.gold.goldGagne = 0;
         state = BattleStates.Neutre;
 
         return;
@@ -429,10 +444,26 @@ public class BattleSysteme : MonoBehaviour
                 goldAUgment.PersoEnVie();
             }
             goldAUgment.gold.goldTotal += goldAUgment.gold.goldGagne;
+
+            finCombat.SetActive(true);
+            ecranVictoire.SetActive(true);
+            ecranDefaite.SetActive(false);
+            goldtot.text = goldAUgment.gold.goldTotal.ToString();
+            goldGa.text = goldAUgment.gold.goldGagne.ToString();
+            Time.timeScale = 0;
         }
         
         else
+        {
             Debug.Log("Perdu !");
+            goldAUgment.gold.goldTotal += goldAUgment.gold.goldGagne;
+            finCombat.SetActive(true);
+            ecranVictoire.SetActive(false);
+            ecranDefaite.SetActive(true);
+            goldtot.text = goldAUgment.gold.goldTotal.ToString();
+            goldGa.text = goldAUgment.gold.goldGagne.ToString();
+            Time.timeScale = 0;
+        }
     }
 
     void DeathCheck()

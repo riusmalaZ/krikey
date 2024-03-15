@@ -40,6 +40,12 @@ public class ButtonManager: MonoBehaviour
 
     [SerializeField]
     List<Slider> slidervie;
+
+    [SerializeField]
+    List<RawImage> icone;
+
+    [SerializeField]
+    List<TextMeshProUGUI> textours;
     
     void Start()
     {
@@ -50,9 +56,12 @@ public class ButtonManager: MonoBehaviour
     {
         List<Unit> playerUnits = battleSysteme.playerUnitList;
 
+        Debug.Log("Neuill");
+
         for (int i = 0; i < slidervie.Count; i++)
         {
             slidervie[i].value = playerUnits[i].currentHP;
+            textours[i].text = playerUnits[i].toursRestant.ToString();
         }
     }
 
@@ -89,26 +98,28 @@ public class ButtonManager: MonoBehaviour
         button = null;
         unit = null;
 
-        for (int i = 0; i <= ButtonPlayer.Length - 1; i++)
+        for (int x = 0; x < ButtonPlayer.Length ; x++)
         {
-            if(i < playerUnits.Count)
+            int currentIndex = x;
+            if(currentIndex < playerUnits.Count)
             {
-                int currentIndex = i;
+                
                 button = ButtonPlayer[currentIndex].GetComponent<Button>();
                 button.onClick.RemoveAllListeners();
                 texts = ButtonPlayer[currentIndex].GetComponentInChildren<TextMeshProUGUI>();
                 Unit unit2 = playerUnits[currentIndex];
-                texts.text = unit.unitName;
-
-                slidervie[currentIndex].maxValue = unit.maxHP;
+                texts.text = unit2.unitName;
+                icone[currentIndex].texture = unit2.Icone;
+                textours[currentIndex].text = unit2.toursRestant.ToString();
+                slidervie[currentIndex].maxValue = unit2.maxHP;
 
                 button.onClick.AddListener(() => BoutonPlayerClique(unit2));
-                Debug.Log(unit.unitName);
+                Debug.Log(unit2.unitName + "yyyyyy");
             }
             
             else
             {
-                ButtonPlayer[i].SetActive(false); // Désactive le bouton s'il n'y a pas d'unité correspondante
+                ButtonPlayer[currentIndex].SetActive(false); // Désactive le bouton s'il n'y a pas d'unité correspondante
             }
         }
         
