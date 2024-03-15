@@ -10727,6 +10727,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: atq_violette_gnome
       objectReference: {fileID: 0}
+    - target: {fileID: 3813443863553105190, guid: 369a7908f2b7abf49974dc80e2765040,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8492413084716251548, guid: 369a7908f2b7abf49974dc80e2765040,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10794,6 +10799,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: speed_up
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678237515706848678, guid: e1b38db07ef32a5419f85dc9495e8bec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8269908362638372500, guid: e1b38db07ef32a5419f85dc9495e8bec,
         type: 3}
