@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Marius/MainMenu.unity
+    path: Assets/Scenes/Build/MainMenu.unity
     guid: 04f7f1d181603fc41baf882aef6d11c5
   - enabled: 1
     path: Assets/Scenes/Marius/Rogue.unity

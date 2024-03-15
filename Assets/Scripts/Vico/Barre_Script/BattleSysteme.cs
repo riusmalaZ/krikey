@@ -106,8 +106,11 @@ public class BattleSysteme : MonoBehaviour
 
     public TextMeshProUGUI goldGa;
 
+    public List<EnemyEnnemy> enemyEnnemies;
+
 
     // Start is called before the first frame update
+    
     void Awake()
     {
         state = BattleStates.Start;
@@ -115,6 +118,8 @@ public class BattleSysteme : MonoBehaviour
         PlayerAttackButton.SetActive(false);
         EnnemisInterface.SetActive(false);
         PlayerSelectInterface.SetActive(false);
+
+        EnemyPrefab = enemyEnnemies[Random.Range(0, enemyEnnemies.Count)].Enemy;
 
         ecranVictoire.SetActive(false);
         ecranDefaite.SetActive(false);
@@ -222,6 +227,8 @@ public class BattleSysteme : MonoBehaviour
 
         List<Unit> unitDeath = new();
 
+        
+
             
         int nb_Player = PlayerUnitList.Count;
 
@@ -229,6 +236,12 @@ public class BattleSysteme : MonoBehaviour
 
         units = iAEnemy.GetUnits(competence, EnemyUnit.competences);
 
+        Animator enemyAnimator = unitsList[EnemyUnit][0].GetComponentInChildren<Animator>();
+
+        Animator PlayerAnimator = unitsList[units[0]][0].GetComponentInChildren<Animator>();
+
+        if(enemyAnimator != null)
+            enemyAnimator.SetTrigger("Attack");
 
         foreach (Unit unit in units)
         {
@@ -240,6 +253,9 @@ public class BattleSysteme : MonoBehaviour
             }   
         }
 
+        if(PlayerAnimator != null)
+            PlayerAnimator.SetTrigger("Hit");
+
         gamecrystal.ChangeCrystale(competence.IndiceCrystale, true);
 
         competence.actualCooldown = competence.Cooldown;
@@ -249,6 +265,10 @@ public class BattleSysteme : MonoBehaviour
         {
             foreach (Unit unitd in unitDeath)
             {
+                PlayerAnimator = unitsList[unitd][0].GetComponentInChildren<Animator>();
+
+                PlayerAnimator.SetTrigger("Death");
+
                 PlayerMort.Add(unitsList[unitd][0]);
 
                 Destroy(unitsList[unitd][0]);
@@ -334,7 +354,9 @@ public class BattleSysteme : MonoBehaviour
 
     public void PlayerCompetence(Unit unit)
     {
+        Animator unitAnimator = unitsList[unit][0].GetComponentInChildren<Animator>();
 
+        Animator PlayerAnimator = unitsList[PlayerUnit][0].GetComponentInChildren<Animator>();
         
         DeathCheck();
 
@@ -375,6 +397,12 @@ public class BattleSysteme : MonoBehaviour
                     effect.Apply(playerUnit, unit);
                 }
             }
+
+            if(unitAnimator != null)
+                PlayerAnimator.SetTrigger("Attack");
+
+            if(unitAnimator != null)
+                unitAnimator.SetTrigger("Hit");
             
         }
         else
@@ -397,6 +425,11 @@ public class BattleSysteme : MonoBehaviour
         {
             if(isDead)
             {
+                if(unitAnimator != null)
+                {
+                    unitAnimator.SetTrigger("Death");
+                }
+                
                 EnnemisMort.Add(unitsList[unit][0]);
                 Destroy(unitsList[unit][0]);
                 Destroy(unitsList[unit][1]);
