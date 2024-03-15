@@ -15,6 +15,7 @@ public class RaycastManager : MonoBehaviour
     Vector3 posInit;
     bool setup = false;
     public GameObject[] objScenar;
+    public GameObject objCoffre;
     // Start is called before the first frame update
     
     void Start()

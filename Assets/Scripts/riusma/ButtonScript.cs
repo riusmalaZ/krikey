@@ -27,13 +27,13 @@ public class ButtonScript : MonoBehaviour
 
         if (lvlSelected == "combat")
         {
-            print("bats toi fumier");
+            //load ta scene de combat
             ReloadScene();
         }
         else if (lvlSelected == "coffre")
         {
-            print("la kichta O___o");
-            ReloadScene();
+            GameObject.Find("RaycastManager").GetComponent<RaycastManager>().objCoffre.SetActive(true);
+            //remplir les cartes
         }
         else if (lvlSelected == "etoile_event")
         {
@@ -47,10 +47,15 @@ public class ButtonScript : MonoBehaviour
         {
             GameObject.Find("RaycastManager").GetComponent<RaycastManager>().objScenar[2].SetActive(true);
         }
+        else if (lvlSelected == "feu_de_camp")
+        {
+            //rajoute des hp omg
+            ReloadScene();
+        }
         else 
         {
             print("azy ya r");
-               
+            ReloadScene();
         }
     }
     public void ReloadScene()

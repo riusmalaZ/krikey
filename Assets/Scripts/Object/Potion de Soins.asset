@@ -15,7 +15,7 @@ MonoBehaviour:
   friendly: 1
   Name: Potion de Soins
   Description: 
-  IconeItem: {fileID: 0}
+  IconeItem: {fileID: 21300000, guid: f10f5c81be5a67c4a9ba02111da51d38, type: 3}
   valHeal: 5
   effect:
   - {fileID: 11400000, guid: b73d2a0e36628184ab82db1263113e0b, type: 2}

@@ -15,6 +15,6 @@ MonoBehaviour:
   friendly: 0
   Name: "Montre \xE0 Gousset"
   Description: 
-  IconeItem: {fileID: 0}
+  IconeItem: {fileID: 21300000, guid: afa324bd2dc58aa4e91d90ae5b8a3567, type: 3}
   valHeal: 0
   effect: []

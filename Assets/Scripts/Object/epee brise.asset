@@ -15,6 +15,6 @@ MonoBehaviour:
   friendly: 0
   Name: "Ep\xE9e bris\xE9"
   Description: 
-  IconeItem: {fileID: 0}
+  IconeItem: {fileID: 21300000, guid: a19361aa699c03649a1d0abf6790814f, type: 3}
   valHeal: 0
   effect: []

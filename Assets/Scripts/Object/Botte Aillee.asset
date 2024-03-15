@@ -15,6 +15,6 @@ MonoBehaviour:
   friendly: 0
   Name: "Botte Ail\xE9"
   Description: 
-  IconeItem: {fileID: 0}
+  IconeItem: {fileID: 21300000, guid: c1df8d5fd7bbc3b459e066c979a87fe4, type: 3}
   valHeal: 0
   effect: []
